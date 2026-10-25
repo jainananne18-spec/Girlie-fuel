@@ -1,4 +1,4 @@
-Girlie Fuel app package (v5)
+Girlie Fuel app package (v6)
 
 FILES
   index.html     the app
@@ -6,7 +6,13 @@ FILES
   sw.js          lets it work offline
   icon-192.png / icon-512.png
 
-WHAT'S NEW IN v5
+WHAT'S NEW IN v6
+  - Prettier pastel pink look: sparkle background, calorie ring, daily banner
+  - Mood check-in, movement log, quick-add foods, day streak
+  - Weekly report now shows active minutes and mood
+  - Fixed the Date / Weight boxes overlapping on iPhone
+
+WHAT CAME IN v5
   - Me tab: profile photo, name, birthday/age, address, height, weight,
     BMI, healthy weight range and desired weight
   - Sleep tab: tap Sleep / I'm awake, hours are calculated and logged,

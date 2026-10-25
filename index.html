@@ -68,6 +68,22 @@ table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table
 .modal{position:fixed;inset:0;background:#4a2a3d66;display:grid;place-items:center;padding:20px;z-index:20}.sheet{background:#fffafc;border-radius:26px;padding:22px;max-width:420px;width:100%;box-shadow:0 20px 50px #4a2a3d44}.sheet p{line-height:1.55;margin:0 0 14px}
 .bars{display:flex;gap:6px;align-items:flex-end;margin-top:8px}.col{flex:1;display:flex;flex-direction:column;align-items:center}.col .wrap{height:100px;display:flex;align-items:flex-end;width:100%}.col .b{width:100%;border-radius:9px 9px 4px 4px;background:linear-gradient(180deg,#f0a0c3,#f8c3d9);min-height:3px}.col .b.over{background:linear-gradient(180deg,#d77aa5,#f0a0c3)}.col .v{font-size:10px;color:var(--muted);height:14px}.col .d{font-size:11px;font-weight:700;margin-top:4px;color:var(--deep)}
 svg.chart{width:100%;height:auto;display:block}
+.fieldgrid>*{min-width:0}
+input:not([type=checkbox]):not([type=file]),select{min-height:48px}
+input[type=date],input[type=datetime-local]{min-width:0;-webkit-appearance:none;appearance:none;height:48px;text-align:left;display:block}
+input[type=date]::-webkit-date-and-time-value,input[type=datetime-local]::-webkit-date-and-time-value{text-align:left}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:#fff0f6;z-index:30}
+body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cg fill='%23f2a9c9' fill-opacity='.4' font-family='sans-serif'%3E%3Ctext x='14' y='30' font-size='14'%3E♡%3C/text%3E%3Ctext x='92' y='62' font-size='11'%3E✦%3C/text%3E%3Ctext x='38' y='112' font-size='13'%3E✿%3C/text%3E%3Ctext x='118' y='136' font-size='13'%3E♡%3C/text%3E%3Ctext x='124' y='22' font-size='9'%3E✦%3C/text%3E%3C/g%3E%3C/svg%3E"),radial-gradient(circle at 0 0,#ffe0ee 0,transparent 45%),radial-gradient(circle at 100% 14%,#fbe3f1 0,transparent 42%),linear-gradient(180deg,#fff0f6,#fffafc 50%)}
+.card{background:rgba(255,255,255,.86);border:1px solid #f7d6e5}
+.card h2::after{content:" ✿";color:#f2a9c9;font-size:.8em}
+.banner{display:flex;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(135deg,#fddcea 0%,#fbc6dc 55%,#f7b0d0 100%);border-radius:28px;padding:20px;margin:14px 0;box-shadow:0 12px 30px #e58db340;position:relative;overflow:hidden}
+.banner::after{content:"✿";position:absolute;right:-10px;top:-24px;font-size:96px;color:#fff;opacity:.28;pointer-events:none}
+.banner .bl{position:relative;z-index:1;min-width:0}.banner h2{font-size:22px;margin:3px 0 6px;color:#4a2a3d}.banner h2::after{content:""}.banner .small{color:#7a4a62}.banner .pill{background:#ffffffa8;margin-top:10px}
+.ring{position:relative;width:108px;height:108px;flex:none;z-index:1}.ring svg{width:100%;height:100%;transform:rotate(-90deg)}.ring circle{fill:none;stroke-width:11;stroke-linecap:round}.ring .rbg{stroke:#ffffff70}.ring .rfg{stroke:#fff;stroke-dasharray:314.16;stroke-dashoffset:314.16;transition:stroke-dashoffset .5s}
+.ring .rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#4a2a3d}.ring .rc strong{font-size:22px;line-height:1.1}.ring .rc span{font-size:10px;font-weight:700}
+.moods{display:flex;gap:8px}.moods button{flex:1;font-size:26px;padding:10px 0;background:#fff4f8;border:1px solid var(--line);box-shadow:none}.moods button.on{background:linear-gradient(135deg,#fcd5e6,#f4a9c8);transform:scale(1.07)}
+.qa{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.qa button{padding:8px 10px;font-size:12px}
+.strip{letter-spacing:3px}
 @media(min-width:540px){.hero h1{font-size:40px}.summary{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
@@ -80,6 +96,10 @@ svg.chart{width:100%;height:auto;display:block}
 
 <!-- ============ TODAY ============ -->
 <section id="today">
+<div class="banner">
+<div class="bl"><div class="small" id="bDate"></div><h2 id="bHello">Hello 💗</h2><div class="small" id="bQuote"></div><span class="pill" id="bStreak"></span></div>
+<div class="ring" aria-label="Calories remaining"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="rbg" cx="60" cy="60" r="50"/><circle class="rfg" id="ringFg" cx="60" cy="60" r="50"/></svg><div class="rc"><strong id="ringVal">0</strong><span>kcal left</span></div></div>
+</div>
 <div class="card">
 <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div><div class="small">TODAY'S TARGET</div><h2 style="margin:3px 0 0">Daily nutrition</h2></div><input id="date" type="date" aria-label="Date" style="width:auto;max-width:160px"></div>
 <div class="summary" style="margin-top:14px">
@@ -103,6 +123,8 @@ svg.chart{width:100%;height:auto;display:block}
 <div class="fieldgrid"><input id="foodName" placeholder="What did you eat? e.g. Chicken adobo + rice" maxlength="80" aria-label="Food"><input id="foodKcal" type="number" inputmode="numeric" min="0" max="3000" placeholder="kcal" aria-label="Calories"></div>
 <button type="button" id="foodAdd" style="width:100%">+ Add to today's log</button>
 </div>
+<div class="small" style="margin-top:12px"><b>Quick add</b> — tap to log with the meal chosen above (estimates):</div>
+<div class="qa" id="qa"></div>
 <div id="foodLog" style="margin-top:10px"></div>
 </div>
 <div class="card" id="smLogCard" hidden>
@@ -113,6 +135,17 @@ svg.chart{width:100%;height:auto;display:block}
 <h2>Water tracker 💧</h2>
 <div class="water"><div><div class="small">1 glass = 250 mL · goal 8–10 glasses</div><div id="waterText" style="font-weight:700;margin-top:3px">0 glasses · 0 mL</div></div><div class="ctrl"><button type="button" class="secondary" id="waterMinus" aria-label="Remove a glass">−</button><button type="button" id="waterPlus" aria-label="Add a glass">+</button></div></div>
 <div class="cups" id="cups"></div>
+</div>
+<div class="card">
+<h2>How are you feeling? 🌷</h2>
+<div class="moods" id="moods"></div>
+<input id="moodNote" maxlength="120" placeholder="A little note about today (optional)" aria-label="Note about today" style="margin-top:10px">
+</div>
+<div class="card">
+<h2>Movement 🏃‍♀️</h2>
+<div class="fieldgrid" style="grid-template-columns:1fr 110px"><select id="wkType" aria-label="Activity"><option>Walk</option><option>Jog / run</option><option>Zumba / dance</option><option>Gym / weights</option><option>Yoga / stretch</option><option>Cycling</option><option>Swimming</option><option>Other</option></select><input id="wkMin" type="number" inputmode="numeric" min="1" max="600" placeholder="min" aria-label="Minutes"></div>
+<button type="button" id="wkAdd" style="width:100%;margin-top:8px">+ Add activity</button>
+<div id="wkLog" style="margin-top:8px"></div>
 </div>
 <div class="card">
 <h2>Little daily wins ✨</h2>
@@ -336,6 +369,9 @@ const recipes=[
 {id:"s7",name:"Avocado Banana",kcal:390,ing:[["avocado","¼"],["banana","½"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]}
 ];
 const prep={s1:"Peel the banana and break it into chunks.",s2:"Peel the banana and break it into chunks. Scoop the papaya flesh out of the skin and cut it into cubes (remove the seeds).",s3:"Peel the banana and break it into chunks. Cut the mango flesh into cubes (fresh or frozen).",s4:"Peel the banana and break it into chunks. Rinse the strawberries and remove the green tops.",s5:"Wash the apple, remove the core and chop it into small pieces (keep the skin on for extra fiber).",s6:"Peel the banana and break it into chunks. Cut the pineapple into small cubes, with the core removed.",s7:"Scoop the avocado flesh out of the skin and measure ¼. Peel the banana and break it into chunks."};
+const quotes=["Nourish, don't punish. 💗","Small steps still count.","Progress, not perfection.","Be kind to your body today. 🌸","Hydrate, glow, repeat. 💧","You're doing better than you think.","One healthy choice at a time. ✨","Rest is part of the routine too. 😴","Your pace is the right pace.","Eat the rainbow, love the girl in the mirror. 🌈","Consistency over intensity.","Strong, soft and glowing. ✿","Today is a fresh page. 📖","Celebrate every little win! 🎀"];
+const QUICK=[["Steamed rice ½ cup",100],["Boiled egg",75],["Banana",105],["Small apple",80],["Kamote (small, boiled)",110],["Pandesal (1)",90],["Low-fat milk 1 cup",120],["Plain yogurt ½ cup",70],["Tofu 100 g",80],["Black coffee",5]];
+const MOODS=["😞","😕","😐","🙂","🥰"];
 const qty=(r,n)=>(r.ing.find(i=>i[0]===n)||[0,""])[1];
 function stepsFor(r){
 const fruit=r.ing.filter(i=>!["oats","low-fat milk","chia seeds","cinnamon"].includes(i[0])).map(i=>i[1]+" "+i[0]).join(" + ");
@@ -349,7 +385,7 @@ return st;
 /* ================= state ================= */
 let settings=load("gf_settings",{target:1500,fiber:25});
 let dateKey=todayKey();
-let checked={},habits={},dayMeals={},foodLog=[],smoothieLog=[],water=0;
+let checked={},habits={},dayMeals={},foodLog=[],smoothieLog=[],water=0,mood=null,workLog=[];
 let mealOverrides=load("gf_meals",{});
 let favs=load("gf_favs",[]),shopSel=load("gf_shopsel",[]),shopDone=load("gf_shopdone",[]);
 let recipeFilter="all",openRecipe=null;
@@ -394,14 +430,15 @@ $("targetText").textContent=Number(settings.target).toLocaleString();
 $("eatenText").textContent=total.toLocaleString();
 $("leftText").textContent=Math.max(0,settings.target-total).toLocaleString();
 $("fiberText").textContent=settings.fiber+" g";
-$("bar").style.width=Math.min(100,total/settings.target*100)+"%";
+$("bar").style.width=Math.min(100,total/settings.target*100)+"%";renderBanner(total);
 $("progressText").textContent=total>settings.target?`${(total-settings.target).toLocaleString()} kcal over your planned target — no need to compensate; just return to your usual routine.`:`${Math.round(total/settings.target*100)}% of your target checked off. Use hunger and energy cues too.`;
 }
 function loadDate(){
 checked=load("gf_checked_"+dateKey,{});habits=load("gf_habits_"+dateKey,{});dayMeals=load("gf_daymeals_"+dateKey,{});
 foodLog=load("gf_food_"+dateKey,[]);smoothieLog=load("gf_smlog_"+dateKey,[]);water=Number(load("gf_water_"+dateKey,0))||0;
 ["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);
-renderMeals();renderFood();renderSmLog();renderWater();
+mood=load("gf_mood_"+dateKey,null);workLog=load("gf_work_"+dateKey,[]);
+renderMeals();renderFood();renderSmLog();renderWater();renderMood();renderWork();
 }
 $("date").addEventListener("change",()=>{dateKey=$("date").value||todayKey();loadDate()});
 $("resetDay").addEventListener("click",()=>{checked={};saveChecked();renderMeals()});
@@ -506,7 +543,7 @@ const t0=new Date(all[0]+"T00:00:00").getTime(),t1=new Date(all[all.length-1]+"T
 const X=d=>all.length===1||t1===t0?pl+(W-pl-pr)/2:pl+((new Date(d+"T00:00:00").getTime()-t0)/(t1-t0))*(W-pl-pr);
 const Y=v=>pt+(hi-v)/(hi-lo)*(H-pt-pb);
 let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weight over time">`;
-for(let i=0;i<=3;i++){const v=hi-(hi-lo)*i/3;const y=Y(v);s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#f3dbe6" stroke-width="1"/><text x="${pl-5}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#7a6670">${v.toFixed(0)}</text>`}
+for(let i=0;i<=3;i++){const v=hi-(hi-lo)*i/3;const y=Y(v);s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#f3dbe6" stroke-width="1"/><text x="${pl-5}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#7a6670">${(hi-lo<8?v.toFixed(1):v.toFixed(0))}</text>`}
 if(g){const y=Y(g);s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#3f7258" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${W-pr}" y="${y-4}" text-anchor="end" font-size="10" fill="#3f7258" font-weight="700">goal ${g.toFixed(1)}</text>`}
 if(all.length>1)s+=`<polyline fill="none" stroke="#e07aa8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${all.map(d=>X(d).toFixed(1)+","+Y(weights[d]).toFixed(1)).join(" ")}"/>`;
 all.forEach(d=>{s+=`<circle cx="${X(d).toFixed(1)}" cy="${Y(weights[d]).toFixed(1)}" r="4" fill="#fff" stroke="#d1578f" stroke-width="2"/>`});
@@ -544,6 +581,7 @@ $("avatar").innerHTML=html;$("heroAvatar").innerHTML=html;
 const first=(profile.name||"").trim().split(/\s+/)[0];
 $("greet").textContent=first?`Hi, ${first} 💗`:"Your gentle daily routine ✿";
 $("profTitle").textContent=first?`${first}'s profile`:"My profile";
+updateTotals();
 }
 function renderProfile(){
 $("pName").value=profile.name||"";$("pBirth").value=profile.birthday||"";$("pAddress").value=profile.address||"";
@@ -706,9 +744,11 @@ const waterAvg=Math.round(data.reduce((s,x)=>s+x.water,0)/7*10)/10;
 const st=sleepStats();
 const wk=wDates().filter(d=>d>=data[0].k);
 const wchg=wk.length>1?weights[wk[wk.length-1]]-weights[wk[0]]:null;
+const active=days.reduce((s,d)=>s+load("gf_work_"+keyOf(d),[]).reduce((a,w)=>a+w.min,0),0);
+const moodStrip=days.map(d=>{const m=load("gf_mood_"+keyOf(d),null);return m&&m.m?MOODS[m.m-1]:"·"}).join(" ");
 const row=(h,v)=>`<div class="logrow"><span>${h}</span><b>${v}</b></div>`;
 $("weekly").innerHTML=`<div class="small">Calories per day (last 7 days)</div><div class="bars">${bars}</div>
-<div style="margin-top:12px">${row("Days with food logged",logged.length+" of 7")}${row("Average on logged days",avg!==null?avg.toLocaleString()+" kcal":"–")}${row("Water per day",waterAvg+" glasses")}${row("Sleep average",st.avg!==null&&st.n7?fmtDur(st.avg):"–")}${row("Weight change this week",wchg!==null?(wchg>0?"+":"")+wchg.toFixed(1)+" kg":"–")}</div>
+<div style="margin-top:12px">${row("Days with food logged",logged.length+" of 7")}${row("Average on logged days",avg!==null?avg.toLocaleString()+" kcal":"–")}${row("Water per day",waterAvg+" glasses")}${row("Sleep average",st.avg!==null&&st.n7?fmtDur(st.avg):"–")}${row("Weight change this week",wchg!==null?(wchg>0?"+":"")+wchg.toFixed(1)+" kg":"–")}${row("Active minutes",active?active+" min":"–")}${row("Mood this week",`<span class="strip">${moodStrip}</span>`)}</div>
 <p class="small" style="margin-top:8px">Rose bars mean a day above your ${settings.target.toLocaleString()} kcal target — no need to worry, just keep going. 💗</p>`;
 }
 /* backup */
@@ -736,6 +776,38 @@ alert("Restored ✓");location.reload();
 r.readAsText(f);e.target.value="";
 });
 
+/* ================= banner, streak, mood, movement, quick add ================= */
+function streak(){let n=0;const d=new Date();for(let i=0;i<400;i++){const k=keyOf(d);if(calcDay(k)>0)n++;else if(i>0)break;d.setDate(d.getDate()-1)}return n}
+function renderBanner(total){
+const d=new Date(dateKey+"T00:00:00"),real=dateKey===todayKey(),h=new Date().getHours();
+const hi=h<12?"Good morning":h<18?"Good afternoon":"Good evening";
+const first=(profile.name||"").trim().split(/\s+/)[0];
+$("bHello").textContent=real?`${hi}${first?", "+first:""} 💗`:`${first?first+"'s":"Your"} day 🌷`;
+$("bDate").textContent=d.toLocaleDateString("en-PH",{weekday:"long",month:"long",day:"numeric"});
+const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);
+$("bQuote").textContent=quotes[doy%quotes.length];
+$("ringVal").textContent=Math.max(0,settings.target-total).toLocaleString();
+$("ringFg").style.strokeDashoffset=(314.16*(1-Math.min(1,total/settings.target))).toFixed(1);
+const st=streak();$("bStreak").textContent=st>0?`🔥 ${st}-day streak`:"✨ Start your streak today";
+}
+function renderMood(){
+const cur=mood&&mood.m?mood.m:0;
+$("moods").innerHTML=MOODS.map((e,i)=>`<button type="button" class="${cur===i+1?"on":""}" data-mood="${i+1}" aria-label="Feeling ${i+1} of 5" aria-pressed="${cur===i+1}">${e}</button>`).join("");
+$("moodNote").value=(mood&&mood.note)||"";
+document.querySelectorAll("[data-mood]").forEach(b=>b.addEventListener("click",()=>{const n=Number(b.dataset.mood);mood={m:cur===n?0:n,note:$("moodNote").value.trim()};save("gf_mood_"+dateKey,mood);renderMood()}));
+}
+$("moodNote").addEventListener("change",()=>{mood={m:mood&&mood.m?mood.m:0,note:$("moodNote").value.trim()};save("gf_mood_"+dateKey,mood)});
+function renderWork(){
+const tot=workLog.reduce((s,w)=>s+w.min,0);
+$("wkLog").innerHTML=workLog.length?workLog.map((w,i)=>`<div class="logrow"><span>${escapeHtml(w.type)} · <b>${w.min} min</b></span><button type="button" class="secondary" data-rmwk="${i}">Remove</button></div>`).join("")+`<div class="small" style="margin-top:6px">Total today: <b>${tot} min</b> 🎉</div>`:`<p class="small">Nothing yet — even a 10-minute walk counts.</p>`;
+document.querySelectorAll("[data-rmwk]").forEach(b=>b.addEventListener("click",()=>{workLog.splice(Number(b.dataset.rmwk),1);save("gf_work_"+dateKey,workLog);renderWork()}));
+}
+$("wkAdd").addEventListener("click",()=>{const min=Math.round(Number($("wkMin").value));if(!(min>0&&min<=600)){$("wkMin").focus();return}workLog.push({type:$("wkType").value,min});save("gf_work_"+dateKey,workLog);$("wkMin").value="";renderWork()});
+function renderQuick(){
+$("qa").innerHTML=QUICK.map((q,i)=>`<button type="button" class="secondary" data-qa="${i}">${escapeHtml(q[0])} · ${q[1]}</button>`).join("");
+document.querySelectorAll("[data-qa]").forEach(b=>b.addEventListener("click",()=>{const q=QUICK[Number(b.dataset.qa)];foodLog.push({slot:$("foodSlot").value,name:q[0],kcal:q[1]});save("gf_food_"+dateKey,foodLog);renderFood();updateTotals()}));
+}
+
 /* ================= navigation ================= */
 function showTab(tab){
 document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!==tab);
@@ -754,7 +826,7 @@ if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigato
 
 /* ================= start ================= */
 $("date").value=dateKey;
-loadDate();renderRecipes();renderShop();renderWeight();renderMeas();renderProfile();renderSleep();
+renderQuick();loadDate();renderRecipes();renderShop();renderWeight();renderMeas();renderProfile();renderSleep();
 checkSleepReturn();
 </script>
 </body>
