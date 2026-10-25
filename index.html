@@ -3,48 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f8dce8">
+<meta name="theme-color" content="#fde6f0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Girlie Fuel">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <title>Girlie Fuel · Meal Planner</title>
 <style>
-:root{--pink:#f8dce8;--pink2:#f3b8d0;--ink:#392d35;--muted:#776b73;--cream:#fffafc;--line:#f0dce5;--green:#47745f}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff3f8,#fffafc 35%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);padding:env(safe-area-inset-top) 16px calc(22px + env(safe-area-inset-bottom));}
-main{max-width:680px;margin:0 auto}.hero{padding:24px 4px 14px}.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#a05e7d;font-weight:800}.hero h1{font-size:30px;margin:7px 0 5px;letter-spacing:-.8px}.hero p{margin:0;color:var(--muted);line-height:1.45}
-.card{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:17px;margin:12px 0;box-shadow:0 5px 18px #8e56720c}
-.summary{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#fff5f9;border-radius:16px;padding:13px}.metric strong{display:block;font-size:25px}.metric span{font-size:12px;color:var(--muted)}
-.progress{height:9px;background:#f6e7ee;border-radius:20px;overflow:hidden;margin:12px 0 5px}.bar{height:100%;width:0;background:linear-gradient(90deg,#e99cbe,#b76e98);border-radius:20px;transition:width .2s}
-h2{font-size:18px;margin:0 0 12px}.meal{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid #f4e8ee}.meal:first-of-type{border-top:0}.meal h3{font-size:15px;margin:0 0 5px}.meal p{font-size:13px;color:var(--muted);line-height:1.45;margin:0}.kcal{font-weight:800;color:#985577;white-space:nowrap}.tag{display:inline-block;background:#fff0f6;color:#9a5a7a;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:700;margin-top:7px}
-button,.btn{border:0;border-radius:13px;padding:12px 14px;font:inherit;font-weight:700;background:#f3c0d6;color:#4d3040;cursor:pointer}.secondary{background:#fff2f7;border:1px solid var(--line)}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{flex:1;min-width:120px}
-input,textarea,select{width:100%;border:1px solid #ead6e0;border-radius:12px;padding:11px;font:inherit;background:#fffdfd;color:var(--ink)}label{display:block;font-size:13px;font-weight:700;margin:10px 0 6px}.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.editmeal{display:none;background:#fff7fa;border:1px solid #f0dce5;border-radius:14px;padding:12px;margin-top:10px}.editmeal.open{display:block}.editmeal label{margin-top:8px}.editmeal .actions{margin-top:10px}.mealbuttons{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.mealbuttons button{font-size:12px;padding:8px 10px}.checkrow{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.checkrow input{width:20px;height:20px;accent-color:#b76e98;margin-top:1px}.checkrow span{font-size:14px;line-height:1.4}.foot{font-size:12px;color:var(--muted);line-height:1.5;padding:6px 4px 20px}.pill{display:inline-flex;align-items:center;border-radius:99px;background:#f4e3eb;padding:5px 9px;font-size:12px;font-weight:700}
-nav{position:sticky;bottom:8px;display:flex;gap:8px;background:#fffafceF;border:1px solid var(--line);border-radius:17px;padding:7px;backdrop-filter:blur(12px);z-index:2}nav button{flex:1;padding:10px 4px;font-size:12px;background:transparent}nav button.active{background:#f6d6e4}
-section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}.notice{background:#fff4d9;border:1px solid #f4e3ae;padding:12px;border-radius:14px;font-size:13px;line-height:1.45}
-.chips{display:flex;gap:8px;margin:0 0 10px}.chip{flex:1;padding:9px 6px;font-size:13px;background:#fff2f7;border:1px solid var(--line)}.chip.active{background:#f3c0d6}
-.recipe{border-top:1px solid #f4e8ee;padding:14px 0}.recipe:first-of-type{border-top:0}.recipe .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.recipe h3{font-size:16px;margin:0}.recipe ul{margin:8px 0 0;padding-left:20px;font-size:14px;line-height:1.6;color:var(--ink)}.recipe .mealbuttons button{font-size:13px}.fav.on{background:#f3b8d0}
-.water{display:flex;align-items:center;justify-content:space-between;gap:12px}.water .ctrl{display:flex;align-items:center;gap:10px}.water .ctrl button{width:42px;height:42px;padding:0;font-size:20px}.water strong{font-size:22px;min-width:28px;text-align:center}.cups{font-size:20px;letter-spacing:2px;margin-top:8px;min-height:26px}
-.logrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #f4e8ee;font-size:14px}.logrow:first-of-type{border-top:0}.logrow button{padding:6px 10px;font-size:12px}
+:root{--pink:#fde6f0;--pink2:#f8c3d9;--pink3:#f0a0c3;--deep:#9c4a73;--ink:#412d3a;--muted:#7a6670;--cream:#fffafc;--line:#f5dfe9;--green:#3f7258;--rose:#b0506f}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Quicksand",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:500;background:radial-gradient(circle at 0 0,#ffe3ef 0,transparent 45%),radial-gradient(circle at 100% 14%,#fbe8f4 0,transparent 40%),linear-gradient(180deg,#fff3f8,#fffafc 45%);padding:env(safe-area-inset-top) 16px calc(100px + env(safe-area-inset-bottom))}
+main{max-width:680px;margin:0 auto}
+[hidden]{display:none!important}
+h1,h2,h3,h4,b,strong{font-weight:700}
+.hero{padding:22px 4px 10px}.herorow{display:flex;align-items:center;gap:14px}
+.eyebrow{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);font-weight:700}
+.hero h1{font-family:"Pacifico","Quicksand",cursive;font-weight:400;font-size:34px;margin:2px 0 0;color:#b5527f;letter-spacing:0}
+.hero p{margin:10px 0 0;color:var(--muted);line-height:1.5}
+.card{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:24px;padding:18px;margin:14px 0;box-shadow:0 8px 24px #c0689812}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{background:linear-gradient(160deg,#fff4f9,#fde9f2);border-radius:18px;padding:13px}.metric strong{display:block;font-size:24px;color:#6a3350}.metric span{font-size:12px;color:var(--muted)}
+.progress{height:10px;background:#f8e6ee;border-radius:20px;overflow:hidden;margin:12px 0 6px}.bar{height:100%;width:0;background:linear-gradient(90deg,#f6b4d0,#d77aa5);border-radius:20px;transition:width .25s}
+h2{font-size:18px;margin:0 0 12px;color:#5a2d46}
+.meal{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid #f6e9ef}.meal:first-of-type{border-top:0}.meal h3{font-size:15px;margin:0 0 5px}.meal p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+.kcal{font-weight:700;color:var(--deep);white-space:nowrap}
+button,.btn{border:0;border-radius:15px;padding:12px 14px;font:inherit;font-weight:700;background:linear-gradient(135deg,#fcd5e6,#f4a9c8);color:#4a2a3d;cursor:pointer;box-shadow:0 4px 12px #e58db338}
+button:active{transform:scale(.98)}
+.secondary{background:#fff4f8;border:1px solid var(--line);box-shadow:none;color:#5a3a4b}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{flex:1;min-width:110px}
+input,textarea,select{width:100%;border:1px solid #efd3e0;border-radius:14px;padding:11px 12px;font:inherit;font-size:16px;background:#fffdfd;color:var(--ink)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #c76a9690;outline-offset:2px}
+label{display:block;font-size:13px;font-weight:700;margin:10px 0 6px}
+.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.editmeal{display:none;background:#fff7fa;border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:10px}.editmeal.open{display:block}.editmeal label{margin-top:8px}.editmeal .actions{margin-top:10px}
+.mealbuttons{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.mealbuttons button{font-size:13px;padding:9px 11px}
+.checkrow{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.checkrow input{width:20px;height:20px;accent-color:#d77aa5;margin-top:1px}.checkrow span{font-size:14px;line-height:1.4}
+.foot{font-size:12px;color:var(--muted);line-height:1.5;padding:6px 4px 20px}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
+.notice{background:#fff3da;border:1px solid #f4e3ae;padding:12px;border-radius:16px;font-size:13px;line-height:1.5}
+.pinknote{background:#fff0f6;border:1px solid var(--line);padding:12px;border-radius:16px;font-size:13px;line-height:1.5}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom));width:min(calc(100% - 20px),660px);display:flex;gap:2px;background:#fffafcee;border:1px solid var(--line);border-radius:22px;padding:6px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 28px #c0689826;z-index:5}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 0 6px;font-size:11px;background:transparent;box-shadow:none;border-radius:16px;color:#6b4a5c}
+nav button i{font-style:normal;font-size:19px;line-height:1.1}
+nav button.active{background:linear-gradient(135deg,#fcd5e6,#f6b4d0);color:#4a2a3d}
+.chips{display:flex;gap:8px;margin:0 0 10px}.chip{flex:1;padding:9px 6px;font-size:13px;background:#fff4f8;border:1px solid var(--line);box-shadow:none}.chip.active{background:linear-gradient(135deg,#fcd5e6,#f4a9c8)}
+.flavor{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:#fff7fa;border:1px solid var(--line);margin:8px 0 0;padding:14px;box-shadow:none}.flavor .nm{font-size:15px}.flavor .kc{font-weight:700;color:var(--deep);white-space:nowrap;font-size:13px}.flavor .chev{transition:transform .15s;display:inline-block;margin-left:6px}.flavor[aria-expanded=true]{background:#fbdcea}.flavor[aria-expanded=true] .chev{transform:rotate(90deg)}
+.detail{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 14px 14px;margin-top:6px}.detail h4{margin:12px 0 4px;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--deep)}.detail ul,.detail ol{margin:4px 0 0;padding-left:22px;font-size:14px;line-height:1.65}.detail ol li{margin-bottom:4px}
+.fav.on{background:linear-gradient(135deg,#f8c3d9,#f0a0c3)}
+.water{display:flex;align-items:center;justify-content:space-between;gap:12px}.water .ctrl{display:flex;align-items:center;gap:10px}.water .ctrl button{width:44px;height:44px;padding:0;font-size:20px}.cups{font-size:20px;letter-spacing:2px;margin-top:8px;min-height:26px}
+.logrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #f6e9ef;font-size:14px}.logrow:first-of-type{border-top:0}.logrow button{padding:6px 10px;font-size:12px}
 .shop label.checkrow{margin:8px 0}.shop .checkrow span small{display:block;color:var(--muted)}.shop .checkrow input:checked+span{text-decoration:line-through;opacity:.55}
-.flavor{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:#fff7fa;border:1px solid var(--line);margin:8px 0 0;padding:14px}.flavor .nm{font-size:15px}.flavor .kc{font-weight:800;color:#985577;white-space:nowrap;font-size:13px}.flavor .chev{transition:transform .15s;display:inline-block;margin-left:6px}.flavor[aria-expanded=true]{background:#f6d6e4}.flavor[aria-expanded=true] .chev{transform:rotate(90deg)}
-.detail{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 14px 14px;margin-top:6px}.detail h4{margin:12px 0 4px;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#a05e7d}.detail ul,.detail ol{margin:4px 0 0;padding-left:22px;font-size:14px;line-height:1.65}.detail ol li{margin-bottom:4px}
 .foodform{display:grid;gap:8px;margin-top:6px}.foodform .fieldgrid{grid-template-columns:1fr 110px}
-table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table.wt th{text-align:left;font-size:12px;color:var(--muted);padding:8px 6px;border-bottom:2px solid var(--line)}table.wt td{padding:10px 6px;border-bottom:1px solid #f4e8ee}table.wt td.num,table.wt th.num{text-align:right}.up{color:#b0506f;font-weight:700}.down{color:var(--green);font-weight:700}table.wt button{padding:5px 9px;font-size:12px}
-@media(min-width:540px){.hero h1{font-size:36px}.summary{grid-template-columns:repeat(4,1fr)}}
+table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table.wt th{text-align:left;font-size:12px;color:var(--muted);padding:8px 6px;border-bottom:2px solid var(--line)}table.wt td{padding:10px 6px;border-bottom:1px solid #f6e9ef;vertical-align:middle}table.wt td.num,table.wt th.num{text-align:right}.up{color:var(--rose);font-weight:700}.down{color:var(--green);font-weight:700}table.wt button{padding:5px 9px;font-size:12px}
+.avatar{width:96px;height:96px;border-radius:50%;background:#fde6f0;border:3px solid #fff;box-shadow:0 0 0 2px var(--pink2);display:grid;place-items:center;font-size:40px;overflow:hidden;flex:none}.avatar img{width:100%;height:100%;object-fit:cover}.avatar.sm{width:56px;height:56px;font-size:26px}
+.profhead{display:flex;align-items:center;gap:16px}
+.pill{display:inline-flex;align-items:center;border-radius:99px;background:#fbe3ee;padding:5px 10px;font-size:12px;font-weight:700;color:#6a3350}
+.sleepbtn{width:100%;padding:22px 14px;border-radius:24px;font-size:20px;margin-top:6px}.sleepbtn.awake{background:linear-gradient(135deg,#ffeab0,#ffc9a8)}
+.sleepstatus{text-align:center;padding:6px 0 10px}.sleepstatus .big{font-size:34px;font-weight:700;color:#6a3350}
+.modal{position:fixed;inset:0;background:#4a2a3d66;display:grid;place-items:center;padding:20px;z-index:20}.sheet{background:#fffafc;border-radius:26px;padding:22px;max-width:420px;width:100%;box-shadow:0 20px 50px #4a2a3d44}.sheet p{line-height:1.55;margin:0 0 14px}
+.bars{display:flex;gap:6px;align-items:flex-end;margin-top:8px}.col{flex:1;display:flex;flex-direction:column;align-items:center}.col .wrap{height:100px;display:flex;align-items:flex-end;width:100%}.col .b{width:100%;border-radius:9px 9px 4px 4px;background:linear-gradient(180deg,#f0a0c3,#f8c3d9);min-height:3px}.col .b.over{background:linear-gradient(180deg,#d77aa5,#f0a0c3)}.col .v{font-size:10px;color:var(--muted);height:14px}.col .d{font-size:11px;font-weight:700;margin-top:4px;color:var(--deep)}
+svg.chart{width:100%;height:auto;display:block}
+@media(min-width:540px){.hero h1{font-size:40px}.summary{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
 <main>
 <header class="hero">
-<div class="eyebrow">Your gentle daily routine ✿</div>
-<h1>Girlie Fuel</h1>
+<div class="herorow"><div class="avatar sm" id="heroAvatar" aria-hidden="true">🌸</div><div><div class="eyebrow" id="greet">Your gentle daily routine ✿</div><h1>Girlie Fuel</h1></div></div>
 <p>Your personal Filipino meal planner — simple, flexible, and made for your goals.</p>
 </header>
+
+<!-- ============ TODAY ============ -->
 <section id="today">
 <div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div><div class="small">TODAY'S TARGET</div><h2 style="margin:3px 0 0">Daily nutrition</h2></div><input id="date" type="date" style="width:auto;max-width:155px"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div><div class="small">TODAY'S TARGET</div><h2 style="margin:3px 0 0">Daily nutrition</h2></div><input id="date" type="date" aria-label="Date" style="width:auto;max-width:160px"></div>
 <div class="summary" style="margin-top:14px">
 <div class="metric"><strong id="targetText">1,500</strong><span>calorie target</span></div>
 <div class="metric"><strong id="eatenText">0</strong><span>calories checked</span></div>
@@ -63,7 +100,7 @@ table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table
 <p class="small">Eating something different today? Add it here and it counts toward today's calories. Each day has its own log — use the date at the top to open another day.</p>
 <div class="foodform">
 <select id="foodSlot" aria-label="Meal"><option>Breakfast</option><option>Lunch</option><option>Snack</option><option>Dinner</option><option>Other</option></select>
-<div class="fieldgrid"><input id="foodName" placeholder="What did you eat? e.g. Chicken adobo + rice" maxlength="80"><input id="foodKcal" type="number" inputmode="numeric" min="0" max="3000" placeholder="kcal"></div>
+<div class="fieldgrid"><input id="foodName" placeholder="What did you eat? e.g. Chicken adobo + rice" maxlength="80" aria-label="Food"><input id="foodKcal" type="number" inputmode="numeric" min="0" max="3000" placeholder="kcal" aria-label="Calories"></div>
 <button type="button" id="foodAdd" style="width:100%">+ Add to today's log</button>
 </div>
 <div id="foodLog" style="margin-top:10px"></div>
@@ -74,7 +111,7 @@ table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table
 </div>
 <div class="card">
 <h2>Water tracker 💧</h2>
-<div class="water"><div><div class="small">1 glass = 250 mL · goal 8–10 glasses</div><div id="waterText" style="font-weight:800;margin-top:3px">0 glasses · 0 mL</div></div><div class="ctrl"><button type="button" class="secondary" id="waterMinus" aria-label="Remove a glass">−</button><button type="button" id="waterPlus" aria-label="Add a glass">+</button></div></div>
+<div class="water"><div><div class="small">1 glass = 250 mL · goal 8–10 glasses</div><div id="waterText" style="font-weight:700;margin-top:3px">0 glasses · 0 mL</div></div><div class="ctrl"><button type="button" class="secondary" id="waterMinus" aria-label="Remove a glass">−</button><button type="button" id="waterPlus" aria-label="Add a glass">+</button></div></div>
 <div class="cups" id="cups"></div>
 </div>
 <div class="card">
@@ -85,6 +122,8 @@ table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table
 <div class="checkrow"><input type="checkbox" id="protein"><span>Include protein with meals.</span></div>
 </div>
 </section>
+
+<!-- ============ SMOOTHIES ============ -->
 <section id="smoothies" hidden>
 <div class="card">
 <h2>🥤 Smoothie menu</h2>
@@ -94,14 +133,134 @@ table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table
 </div>
 <div class="card shop">
 <h2>🛒 Smoothie shopping list</h2>
-<p class="small" id="shopHint">Tick the recipes you want this week to build your list.</p>
+<p class="small" id="shopHint">Tap the recipes you want this week to build your list.</p>
 <div id="shopPicks" class="mealbuttons"></div>
 <div id="shopList" style="margin-top:8px"></div>
 <div class="actions" style="margin-top:10px"><button type="button" class="secondary" id="shopClear">Clear ticks</button></div>
 </div>
 <div class="notice">Tip: soak the oats in the milk for 5–10 minutes (or overnight in the fridge) for a smoother blend and let the chia seeds swell. Frozen fruit makes it thick and cold with no ice needed.</div>
 </section>
+
+<!-- ============ SLEEP ============ -->
+<section id="sleep" hidden>
+<div class="card">
+<h2>😴 Sleep tracker</h2>
+<div class="sleepstatus" id="sleepStatus"></div>
+<button type="button" class="sleepbtn" id="sleepBtn">🌙 Sleep</button>
+<p class="small" style="margin-top:10px">Tap <b>Sleep</b> when you go to bed and <b>I'm awake</b> when you get up. Your hours are worked out and saved automatically.</p>
+</div>
+<div class="card" id="sleepEditor" hidden>
+<h2 id="sleepEditorTitle">Edit sleep</h2>
+<p class="small">Fix the times if you forgot to tap, or couldn't fall asleep right away.</p>
+<label for="sStart">Went to bed / tapped Sleep</label><input id="sStart" type="datetime-local">
+<label for="sAsleep">Actually fell asleep (optional)</label><input id="sAsleep" type="datetime-local">
+<label for="sEnd">Woke up</label><input id="sEnd" type="datetime-local">
+<p class="small" id="sMsg" style="margin-top:8px;color:var(--rose)"></p>
+<div class="actions" style="margin-top:8px"><button type="button" id="sSave">Save sleep</button><button type="button" class="secondary" id="sCancel">Cancel</button></div>
+</div>
+<div class="card">
+<h2>Your sleep</h2>
+<div class="summary" style="grid-template-columns:repeat(3,1fr)">
+<div class="metric"><strong id="slLast">–</strong><span>last sleep</span></div>
+<div class="metric"><strong id="slAvg">–</strong><span>7-day average</span></div>
+<div class="metric"><strong id="slCount">0</strong><span>nights logged</span></div>
+</div>
+<div class="progress"><div class="bar" id="slBar"></div></div><div class="small">Goal for adults: 7–9 hours a night. The bar shows your 7-day average against 8 hours.</div>
+</div>
+<div class="card">
+<h2>Sleep log</h2>
+<div id="sleepTable"></div>
+<div class="actions" style="margin-top:10px"><button type="button" class="secondary" id="sAdd">+ Add sleep manually</button></div>
+</div>
+<div class="pinknote"><b>About phone detection 📱</b><br>Safari doesn't let any app or website see when you use other apps, so I can't tell on my own that you picked up your phone. What I <i>can</i> do: if you tapped Sleep and then open Girlie Fuel later, I'll ask "Are you awake?" and note it in your log. If you forgot to tap awake, just answer and fix the times.</div>
+</section>
+
+<!-- ============ WEIGHT ============ -->
+<section id="weight" hidden>
+<div class="card" id="goalCard" hidden>
+<h2>🎯 Goal progress</h2>
+<div id="goalText" class="small" style="font-size:14px;color:var(--ink)"></div>
+<div class="progress"><div class="bar" id="goalBar"></div></div>
+<div class="small" id="goalSub"></div>
+</div>
+<div class="card">
+<h2>⚖️ Weight log</h2>
+<div class="summary" style="grid-template-columns:repeat(3,1fr)">
+<div class="metric"><strong id="wLatest">–</strong><span>latest (kg)</span></div>
+<div class="metric"><strong id="wChange">–</strong><span>change since first</span></div>
+<div class="metric"><strong id="wCount">0</strong><span>entries</span></div>
+</div>
+<div class="fieldgrid" style="margin-top:12px"><div><label for="wDate">Date</label><input id="wDate" type="date"></div><div><label for="wKg">Weight (kg)</label><input id="wKg" type="number" inputmode="decimal" step="0.1" min="20" max="300" placeholder="e.g. 68.4"></div></div>
+<button type="button" id="wSave" style="width:100%;margin-top:12px">Save weight</button>
+<p class="small" id="wMsg" style="margin-top:8px">Saving again for the same date replaces that day's entry.</p>
+</div>
+<div class="card">
+<h2>Progress chart 📈</h2>
+<div id="wChart"></div>
+</div>
+<div class="card">
+<h2>Daily weights</h2>
+<div id="wTable"></div>
+<div class="notice" style="margin-top:12px">Weight naturally moves up and down day to day with water, salt and meals. Weigh at the same time each day (for example, in the morning after using the bathroom) and look at the weekly trend, not a single day.</div>
+</div>
+<div class="card">
+<h2>📏 Waist &amp; hips</h2>
+<p class="small">When the scale stalls, your measurements often still change. Measure at the same spot each time.</p>
+<div class="fieldgrid" style="grid-template-columns:1fr 1fr 1fr"><div><label for="mDate">Date</label><input id="mDate" type="date"></div><div><label for="mWaist">Waist (cm)</label><input id="mWaist" type="number" inputmode="decimal" step="0.1" min="30" max="250"></div><div><label for="mHips">Hips (cm)</label><input id="mHips" type="number" inputmode="decimal" step="0.1" min="30" max="250"></div></div>
+<button type="button" id="mSave" style="width:100%;margin-top:12px">Save measurements</button>
+<p class="small" id="mMsg" style="margin-top:8px"></p>
+<div id="mTable"></div>
+</div>
+</section>
+
+<!-- ============ PROFILE ============ -->
+<section id="profile" hidden>
+<div class="card">
+<div class="profhead"><div class="avatar" id="avatar">🌸</div><div style="flex:1"><h2 style="margin-bottom:8px" id="profTitle">My profile</h2>
+<div class="actions"><label class="btn secondary" style="margin:0;padding:10px 12px;font-size:13px;text-align:center;flex:1" for="photoIn">📷 Photo</label><button type="button" class="secondary" id="photoDel" style="padding:10px 12px;font-size:13px">Remove</button></div>
+<input id="photoIn" type="file" accept="image/*" style="display:none"></div></div>
+<p class="small" style="margin-top:12px">🔒 Your details stay on this phone only. They are never uploaded or put on GitHub.</p>
+</div>
+<div class="card">
+<h2>Personal info</h2>
+<label for="pName">Name</label><input id="pName" autocomplete="name" placeholder="Your full name">
+<div class="fieldgrid"><div><label for="pBirth">Birthday</label><input id="pBirth" type="date"></div><div><label>Age</label><div class="pill" id="pAge" style="margin-top:10px">–</div></div></div>
+<label for="pAddress">Address</label><textarea id="pAddress" rows="2" autocomplete="street-address" placeholder="Street, barangay, city, province"></textarea>
+<div class="fieldgrid"><div><label for="pFt">Height – feet</label><input id="pFt" type="number" inputmode="numeric" min="3" max="7" placeholder="5"></div><div><label for="pIn">inches</label><input id="pIn" type="number" inputmode="decimal" min="0" max="11.9" step="0.5" placeholder="0"></div></div>
+<div class="fieldgrid"><div><label for="pWeight">Current weight (kg)</label><input id="pWeight" type="number" inputmode="decimal" step="0.01" min="20" max="300"></div><div><label for="pGoal">Desired weight (kg)</label><input id="pGoal" type="number" inputmode="decimal" step="0.1" min="20" max="300"></div></div>
+<p class="small" id="pGoalHint" style="margin-top:6px"></p>
+<button type="button" id="pSave" style="width:100%;margin-top:12px">Save profile</button>
+<p class="small" id="pMsg" style="margin-top:8px"></p>
+</div>
+<div class="card">
+<h2>Body &amp; goal numbers</h2>
+<div id="pDerived"></div>
+<div class="notice" style="margin-top:12px">BMI uses Asia-Pacific cut-offs (used in the Philippines): healthy 18.5–22.9. It is a screening estimate and doesn't measure body fat or muscle. A steady pace is about 0.25–0.5 kg per week. Please check with a doctor or dietitian before big changes.</div>
+</div>
+</section>
+
+<!-- ============ MORE ============ -->
+<section id="more" hidden>
+<div class="card">
+<h2>This week at a glance 🌷</h2>
+<div id="weekly"></div>
+</div>
+<div class="card">
+<h2>More</h2>
+<div class="actions"><button type="button" class="secondary" data-go="shake">🍌 My banana-oats shake</button><button type="button" class="secondary" data-go="edit">⚙️ Settings</button></div>
+</div>
+<div class="card">
+<h2>💾 Backup &amp; restore</h2>
+<p class="small">Everything is saved on this phone. If you clear Safari's website data, delete the app or switch phones, it would be lost — so save a backup file sometimes (Files app, iCloud, or send it to yourself).</p>
+<div class="actions" style="margin-top:8px"><button type="button" id="exportBtn">⬇️ Save backup</button><label class="btn secondary" for="importIn" style="margin:0;text-align:center;flex:1;min-width:110px">⬆️ Restore backup</label></div>
+<input id="importIn" type="file" accept=".json,application/json" style="display:none">
+<p class="small" id="bkMsg" style="margin-top:8px"></p>
+</div>
+</section>
+
+<!-- ============ SHAKE ============ -->
 <section id="shake" hidden>
+<button type="button" class="secondary" data-go="more" style="margin-top:12px">← Back</button>
 <div class="card">
 <h2>🍌 Banana oats shake</h2>
 <p class="small">Your original recipe makes about 3 servings. Values are estimates; check your milk label for accuracy.</p>
@@ -112,25 +271,10 @@ table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table
 </div>
 <div class="card"><h2>Quick ingredient guide</h2><div class="meal"><div><h3>Banana</h3><p>1 medium banana</p></div><div class="kcal">~105 kcal</div></div><div class="meal"><div><h3>Rolled oats</h3><p>½ cup (about 40 g)</p></div><div class="kcal">~150 kcal</div></div><div class="meal"><div><h3>Low-fat milk</h3><p>1 cup (240 mL; verify label)</p></div><div class="kcal">~120 kcal</div></div></div>
 </section>
-<section id="weight" hidden>
-<div class="card">
-<h2>⚖️ Weight log</h2>
-<div class="summary" style="grid-template-columns:repeat(3,1fr)">
-<div class="metric"><strong id="wLatest">–</strong><span>latest (kg)</span></div>
-<div class="metric"><strong id="wChange">–</strong><span>change since first</span></div>
-<div class="metric"><strong id="wCount">0</strong><span>entries</span></div>
-</div>
-<div class="fieldgrid" style="margin-top:12px"><div><label for="wDate">Date</label><input id="wDate" type="date"></div><div><label for="wKg">Weight (kg)</label><input id="wKg" type="number" inputmode="decimal" step="0.1" min="20" max="300" placeholder="e.g. 58.4"></div></div>
-<button type="button" id="wSave" style="width:100%;margin-top:12px">Save weight</button>
-<p class="small" id="wMsg" style="margin-top:8px">Saving again for the same date replaces that day's entry.</p>
-</div>
-<div class="card">
-<h2>Daily weights</h2>
-<div id="wTable"></div>
-<div class="notice" style="margin-top:12px">Weight naturally moves up and down day to day with water, salt and meals. Weigh at the same time each day (for example, morning after using the bathroom) and look at the weekly trend, not a single day.</div>
-</div>
-</section>
+
+<!-- ============ SETTINGS ============ -->
 <section id="edit" hidden>
+<button type="button" class="secondary" data-go="more" style="margin-top:12px">← Back</button>
 <div class="card">
 <h2>Personalize your plan ⚙️</h2>
 <label for="target">Daily calorie target</label><input id="target" type="number" min="1000" max="3500" step="50" value="1500">
@@ -140,12 +284,41 @@ table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table
 </div>
 <div class="card"><h2>Meal plan notes</h2><p class="small">These calorie counts are estimates and vary with portion size, cooking oil, recipes, and product labels. You can use this app to browse your plan and track checked meals; it does not replace professional nutrition advice.</p></div>
 </section>
-<nav>
-<button class="active" data-tab="today">Today</button><button data-tab="smoothies">Smoothies</button><button data-tab="shake">My shake</button><button data-tab="weight">Weight</button><button data-tab="edit">Settings</button>
-</nav>
+
 <div class="foot">Made with love for your everyday goals 💗 · Estimates are not exact. If you feel persistently weak, dizzy, unusually hungry, or your exercise recovery suffers, consider increasing intake and consulting a qualified health professional.</div>
 </main>
+
+<div class="modal" id="sleepModal" role="dialog" aria-modal="true" aria-labelledby="smTitle" hidden>
+<div class="sheet"><h2 id="smTitle">Welcome back 🌙</h2><p id="smText"></p>
+<div class="actions"><button type="button" id="smAwake">Yes, I'm awake</button><button type="button" class="secondary" id="smStill">No, still sleeping</button></div></div>
+</div>
+
+<nav aria-label="Main">
+<button class="active" data-tab="today"><i>🏠</i>Today</button>
+<button data-tab="smoothies"><i>🥤</i>Smoothies</button>
+<button data-tab="sleep"><i>😴</i>Sleep</button>
+<button data-tab="weight"><i>⚖️</i>Weight</button>
+<button data-tab="profile"><i>💗</i>Me</button>
+<button data-tab="more"><i>✨</i>More</button>
+</nav>
+
 <script>
+/* ================= helpers ================= */
+const $=id=>document.getElementById(id);
+const load=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){alert("Couldn't save — your phone's browser storage may be full.");return false}};
+const pad=n=>String(n).padStart(2,"0");
+const keyOf=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const todayKey=()=>keyOf(new Date());
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+const escapeAttr=escapeHtml;
+const fmtTime=ms=>new Date(ms).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+const fmtDay=(ms)=>new Date(ms).toLocaleDateString("en-PH",{month:"short",day:"numeric"});
+const fmtKeyDay=k=>new Date(k+"T00:00:00").toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"});
+const fmtDur=m=>{m=Math.max(0,Math.round(m));return Math.floor(m/60)+"h "+pad(m%60)+"m"};
+const toLocalInput=ms=>{const d=new Date(ms);return keyOf(d)+"T"+pad(d.getHours())+":"+pad(d.getMinutes())};
+
+/* ================= data ================= */
 const defaultMeals=[
 {id:"breakfast",time:"7:00 AM · BREAKFAST",name:"Banana oats shake + black coffee",desc:"⅓ of your shake batch; black coffee without sugar.",kcal:355,fiber:7},
 {id:"lunch",time:"12:00 PM · LUNCH",name:"Fried bangus + stir-fried togue, cabbage & tofu",desc:"Estimated serving: 1 portion fried bangus plus 1 cup stir-fried bean sprouts (togue), cabbage and tofu. Add rice separately if eaten.",kcal:450,fiber:4},
@@ -153,56 +326,6 @@ const defaultMeals=[
 {id:"dinner",time:"6:30 PM · DINNER",name:"Bangus, rice & pechay",desc:"100 g cooked bangus, ½ cup cooked rice, 1 cup pechay, about 1 tsp oil.",kcal:400,fiber:3},
 {id:"extra",time:"FLEXIBLE · EXTRA FOOD",name:"Add a nourishing snack or extra portion",desc:"Use this flexible space for more food if hungry or active; examples include yogurt, fruit, or extra rice with protein.",kcal:175,fiber:2}
 ];
-const $=id=>document.getElementById(id);
-const todayKey=()=>new Date().toLocaleDateString("en-CA");
-let settings=JSON.parse(localStorage.getItem("gf_settings")||'{"target":1500,"fiber":25}');
-let dateKey=todayKey();
-$("date").value=dateKey;
-let checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");
-let habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");
-function saveChecked(){localStorage.setItem("gf_checked_"+dateKey,JSON.stringify(checked))}
-let mealOverrides=JSON.parse(localStorage.getItem("gf_meals")||"{}");
-let dayMeals=JSON.parse(localStorage.getItem("gf_daymeals_"+dateKey)||"{}");
-function getMeals(){return defaultMeals.map(m=>({...m,...(mealOverrides[m.id]||{}),...(dayMeals[m.id]||{})}))}
-function renderMeals(){
-const meals=getMeals();
-$("mealList").innerHTML=meals.map(m=>`<div class="meal"><div><div class="small">${m.time}</div><h3>${escapeHtml(m.name)}</h3><p>${escapeHtml(m.desc)}</p><label class="checkrow" style="margin-bottom:0"><input type="checkbox" data-meal="${m.id}" ${checked[m.id]?"checked":""}><span>I've had this</span></label><div class="mealbuttons"><button type="button" class="secondary" data-edit="${m.id}">✏️ Edit meal</button></div><div class="editmeal" id="editor-${m.id}">
-<label>Meal name</label><input id="name-${m.id}" value="${escapeAttr(m.name)}">
-<label>Food and portion details</label><textarea id="desc-${m.id}" rows="3">${escapeHtml(m.desc)}</textarea>
-<div class="fieldgrid"><div><label>Calories (kcal)</label><input id="kcal-${m.id}" type="number" min="0" max="3000" value="${m.kcal}"></div><div><label>Fiber (g)</label><input id="fiber-${m.id}" type="number" min="0" max="100" value="${m.fiber}"></div></div>
-<p class="small" style="margin:8px 0 0">Changes apply to this day only.</p><div class="actions"><button type="button" data-save="${m.id}">Save meal</button><button type="button" class="secondary" data-usual="${m.id}">Use usual meal</button><button type="button" class="secondary" data-cancel="${m.id}">Cancel</button></div>
-</div></div><div class="kcal">${m.kcal} kcal</div></div>`).join("");
-document.querySelectorAll("[data-meal]").forEach(el=>el.addEventListener("change",()=>{checked[el.dataset.meal]=el.checked;saveChecked();updateTotals()}));
-document.querySelectorAll("[data-edit]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.edit).classList.toggle("open")));
-document.querySelectorAll("[data-cancel]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.cancel).classList.remove("open")));
-document.querySelectorAll("[data-save]").forEach(el=>el.addEventListener("click",()=>{
-const id=el.dataset.save;const name=$("name-"+id).value.trim()||"My meal";const desc=$("desc-"+id).value.trim();const kcal=Math.max(0,Math.min(3000,Number($("kcal-"+id).value)||0));const fiber=Math.max(0,Math.min(100,Number($("fiber-"+id).value)||0));
-dayMeals[id]={name,desc,kcal,fiber};localStorage.setItem("gf_daymeals_"+dateKey,JSON.stringify(dayMeals));renderMeals();
-}));
-document.querySelectorAll("[data-usual]").forEach(el=>el.addEventListener("click",()=>{delete dayMeals[el.dataset.usual];localStorage.setItem("gf_daymeals_"+dateKey,JSON.stringify(dayMeals));renderMeals()}));updateTotals()
-}
-function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function escapeAttr(s){return escapeHtml(s)}
-function updateTotals(){
-const total=getMeals().reduce((s,m)=>s+(checked[m.id]?Number(m.kcal):0),0)+foodLog.reduce((s,f)=>s+(Number(f.kcal)||0),0)+smoothieLog.reduce((s,id)=>s+((recipes.find(r=>r.id===id)||{}).kcal||0),0);
-$("targetText").textContent=Number(settings.target).toLocaleString();
-$("eatenText").textContent=total.toLocaleString();
-$("leftText").textContent=Math.max(0,settings.target-total).toLocaleString();
-$("fiberText").textContent=settings.fiber+" g";
-$("bar").style.width=Math.min(100,total/settings.target*100)+"%";
-$("progressText").textContent=total>settings.target?`${(total-settings.target).toLocaleString()} kcal over your planned target — no need to compensate; just return to your usual routine.`:`${Math.round(total/settings.target*100)}% of your target checked off. Use hunger and energy cues too.`;
-}
-function loadDate(){dayMeals=load("gf_daymeals_"+dateKey,"{}");foodLog=load("gf_food_"+dateKey,"[]");renderFood();smoothieLog=JSON.parse(localStorage.getItem("gf_smlog_"+dateKey)||"[]");water=Number(localStorage.getItem("gf_water_"+dateKey)||0);renderSmLog();renderWater();checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);renderMeals()}
-$("date").addEventListener("change",()=>{dateKey=$("date").value||todayKey();loadDate()});
-$("resetDay").addEventListener("click",()=>{checked={};saveChecked();renderMeals()});
-$("editBtn").addEventListener("click",()=>showTab("edit"));
-$("saveSettings").addEventListener("click",()=>{settings.target=Math.max(1000,Math.min(3500,Number($("target").value)||1500));settings.fiber=Math.max(10,Math.min(60,Number($("fiberTarget").value)||25));localStorage.setItem("gf_settings",JSON.stringify(settings));updateTotals();showTab("today")});
-["water","steps","veg","protein"].forEach(id=>$(id).addEventListener("change",()=>{habits[id]=$(id).checked;localStorage.setItem("gf_habits_"+dateKey,JSON.stringify(habits))}));
-function showTab(tab){document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!==tab);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));if(tab==="edit"){$("target").value=settings.target;$("fiberTarget").value=settings.fiber}window.scrollTo({top:0,behavior:"smooth"})}
-document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
-if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
-
-/* ---------- Smoothies ---------- */
 const recipes=[
 {id:"s1",name:"Banana Oat Chia",kcal:370,ing:[["banana","1"],["oats","½ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]},
 {id:"s2",name:"Banana Papaya",kcal:340,ing:[["banana","½"],["papaya","1 cup"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]},
@@ -212,12 +335,6 @@ const recipes=[
 {id:"s6",name:"Pineapple Banana",kcal:355,ing:[["banana","½"],["pineapple","¾ cup"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]},
 {id:"s7",name:"Avocado Banana",kcal:390,ing:[["avocado","¼"],["banana","½"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]}
 ];
-const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||d)}catch(e){return JSON.parse(d)}};
-let smoothieLog=load("gf_smlog_"+dateKey,"[]");
-let favs=load("gf_favs","[]");
-let shopSel=load("gf_shopsel","[]");
-let shopDone=load("gf_shopdone","[]");
-let recipeFilter="all";let openRecipe=null;
 const prep={s1:"Peel the banana and break it into chunks.",s2:"Peel the banana and break it into chunks. Scoop the papaya flesh out of the skin and cut it into cubes (remove the seeds).",s3:"Peel the banana and break it into chunks. Cut the mango flesh into cubes (fresh or frozen).",s4:"Peel the banana and break it into chunks. Rinse the strawberries and remove the green tops.",s5:"Wash the apple, remove the core and chop it into small pieces (keep the skin on for extra fiber).",s6:"Peel the banana and break it into chunks. Cut the pineapple into small cubes, with the core removed.",s7:"Scoop the avocado flesh out of the skin and measure ¼. Peel the banana and break it into chunks."};
 const qty=(r,n)=>(r.ing.find(i=>i[0]===n)||[0,""])[1];
 function stepsFor(r){
@@ -228,74 +345,417 @@ st.push("Blend on high for 45–60 seconds until smooth. If it's too thick, add 
 st.push("Let it rest 2–3 minutes (the chia thickens it), stir, then drink fresh. Nothing sweet needs to be added.");
 return st;
 }
+
+/* ================= state ================= */
+let settings=load("gf_settings",{target:1500,fiber:25});
+let dateKey=todayKey();
+let checked={},habits={},dayMeals={},foodLog=[],smoothieLog=[],water=0;
+let mealOverrides=load("gf_meals",{});
+let favs=load("gf_favs",[]),shopSel=load("gf_shopsel",[]),shopDone=load("gf_shopdone",[]);
+let recipeFilter="all",openRecipe=null;
+let weights=load("gf_weights",{}),meas=load("gf_meas",{});
+let profile=load("gf_profile",{});
+let sleepLog=load("gf_sleep",[]),sleepSession=load("gf_sleepnow",null),editingSleep=null;
+
+/* ================= per-day calculations ================= */
+function mealsFor(key){const ov=load("gf_meals",{}),dm=load("gf_daymeals_"+key,{});return defaultMeals.map(m=>({...m,...(ov[m.id]||{}),...(dm[m.id]||{})}))}
+function calcDay(key){
+const ch=load("gf_checked_"+key,{});
+let t=mealsFor(key).reduce((s,m)=>s+(ch[m.id]?Number(m.kcal)||0:0),0);
+t+=load("gf_food_"+key,[]).reduce((s,f)=>s+(Number(f.kcal)||0),0);
+t+=load("gf_smlog_"+key,[]).reduce((s,id)=>s+((recipes.find(r=>r.id===id)||{}).kcal||0),0);
+return t;
+}
+function getMeals(){return mealsFor(dateKey)}
+
+/* ================= TODAY ================= */
+function renderMeals(){
+const meals=getMeals();
+$("mealList").innerHTML=meals.map(m=>`<div class="meal"><div><div class="small">${escapeHtml(m.time)}</div><h3>${escapeHtml(m.name)}</h3><p>${escapeHtml(m.desc)}</p><label class="checkrow" style="margin-bottom:0"><input type="checkbox" data-meal="${m.id}" ${checked[m.id]?"checked":""}><span>I've had this</span></label><div class="mealbuttons"><button type="button" class="secondary" data-edit="${m.id}">✏️ Edit meal</button></div><div class="editmeal" id="editor-${m.id}">
+<label>Meal name</label><input id="name-${m.id}" value="${escapeAttr(m.name)}">
+<label>Food and portion details</label><textarea id="desc-${m.id}" rows="3">${escapeHtml(m.desc)}</textarea>
+<div class="fieldgrid"><div><label>Calories (kcal)</label><input id="kcal-${m.id}" type="number" min="0" max="3000" value="${m.kcal}"></div><div><label>Fiber (g)</label><input id="fiber-${m.id}" type="number" min="0" max="100" value="${m.fiber}"></div></div>
+<p class="small" style="margin:8px 0 0">Changes apply to this day only.</p><div class="actions"><button type="button" data-save="${m.id}">Save meal</button><button type="button" class="secondary" data-usual="${m.id}">Use usual meal</button><button type="button" class="secondary" data-cancel="${m.id}">Cancel</button></div>
+</div></div><div class="kcal">${Number(m.kcal)||0} kcal</div></div>`).join("");
+document.querySelectorAll("[data-meal]").forEach(el=>el.addEventListener("change",()=>{checked[el.dataset.meal]=el.checked;saveChecked();updateTotals()}));
+document.querySelectorAll("[data-edit]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.edit).classList.toggle("open")));
+document.querySelectorAll("[data-cancel]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.cancel).classList.remove("open")));
+document.querySelectorAll("[data-save]").forEach(el=>el.addEventListener("click",()=>{
+const id=el.dataset.save;const name=$("name-"+id).value.trim()||"My meal";const desc=$("desc-"+id).value.trim();const kcal=Math.max(0,Math.min(3000,Number($("kcal-"+id).value)||0));const fiber=Math.max(0,Math.min(100,Number($("fiber-"+id).value)||0));
+dayMeals[id]={name,desc,kcal,fiber};save("gf_daymeals_"+dateKey,dayMeals);renderMeals();
+}));
+document.querySelectorAll("[data-usual]").forEach(el=>el.addEventListener("click",()=>{delete dayMeals[el.dataset.usual];save("gf_daymeals_"+dateKey,dayMeals);renderMeals()}));
+updateTotals();
+}
+function saveChecked(){save("gf_checked_"+dateKey,checked)}
+function updateTotals(){
+const total=calcDay(dateKey);
+$("targetText").textContent=Number(settings.target).toLocaleString();
+$("eatenText").textContent=total.toLocaleString();
+$("leftText").textContent=Math.max(0,settings.target-total).toLocaleString();
+$("fiberText").textContent=settings.fiber+" g";
+$("bar").style.width=Math.min(100,total/settings.target*100)+"%";
+$("progressText").textContent=total>settings.target?`${(total-settings.target).toLocaleString()} kcal over your planned target — no need to compensate; just return to your usual routine.`:`${Math.round(total/settings.target*100)}% of your target checked off. Use hunger and energy cues too.`;
+}
+function loadDate(){
+checked=load("gf_checked_"+dateKey,{});habits=load("gf_habits_"+dateKey,{});dayMeals=load("gf_daymeals_"+dateKey,{});
+foodLog=load("gf_food_"+dateKey,[]);smoothieLog=load("gf_smlog_"+dateKey,[]);water=Number(load("gf_water_"+dateKey,0))||0;
+["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);
+renderMeals();renderFood();renderSmLog();renderWater();
+}
+$("date").addEventListener("change",()=>{dateKey=$("date").value||todayKey();loadDate()});
+$("resetDay").addEventListener("click",()=>{checked={};saveChecked();renderMeals()});
+$("editBtn").addEventListener("click",()=>showTab("edit"));
+$("saveSettings").addEventListener("click",()=>{settings.target=Math.max(1000,Math.min(3500,Number($("target").value)||1500));settings.fiber=Math.max(10,Math.min(60,Number($("fiberTarget").value)||25));save("gf_settings",settings);updateTotals();showTab("today")});
+["water","steps","veg","protein"].forEach(id=>$(id).addEventListener("change",()=>{habits[id]=$(id).checked;save("gf_habits_"+dateKey,habits)}));
+
+/* food log */
+function renderFood(){
+$("foodLog").innerHTML=foodLog.length?foodLog.map((f,i)=>`<div class="logrow"><span><span class="small">${escapeHtml(f.slot)}</span><br>${escapeHtml(f.name)} · <b>${Number(f.kcal)||0} kcal</b></span><button type="button" class="secondary" data-rmfood="${i}">Remove</button></div>`).join(""):`<p class="small">Nothing logged yet.</p>`;
+document.querySelectorAll("[data-rmfood]").forEach(b=>b.addEventListener("click",()=>{foodLog.splice(Number(b.dataset.rmfood),1);save("gf_food_"+dateKey,foodLog);renderFood();updateTotals()}));
+}
+$("foodAdd").addEventListener("click",()=>{
+const name=$("foodName").value.trim();if(!name){$("foodName").focus();return}
+const kcal=Math.max(0,Math.min(3000,Number($("foodKcal").value)||0));
+foodLog.push({slot:$("foodSlot").value,name,kcal});save("gf_food_"+dateKey,foodLog);
+$("foodName").value="";$("foodKcal").value="";renderFood();updateTotals();
+});
+/* smoothie log */
+function saveSmLog(){save("gf_smlog_"+dateKey,smoothieLog)}
+function renderSmLog(){
+$("smLogCard").hidden=!smoothieLog.length;
+$("smLog").innerHTML=smoothieLog.map((id,i)=>{const r=recipes.find(x=>x.id===id);return r?`<div class="logrow"><span>${escapeHtml(r.name)} · <b>~${r.kcal} kcal</b></span><button type="button" class="secondary" data-rmsm="${i}">Remove</button></div>`:""}).join("");
+document.querySelectorAll("[data-rmsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog.splice(Number(b.dataset.rmsm),1);saveSmLog();renderSmLog();updateTotals()}));
+updateTotals();
+}
+/* water */
+function renderWater(){$("waterText").textContent=`${water} glass${water===1?"":"es"} · ${(water*250).toLocaleString()} mL`;$("cups").textContent="💧".repeat(Math.min(water,12))}
+function setWater(n){water=Math.max(0,Math.min(20,n));save("gf_water_"+dateKey,water);renderWater()}
+$("waterPlus").addEventListener("click",()=>setWater(water+1));
+$("waterMinus").addEventListener("click",()=>setWater(water-1));
+
+/* ================= SMOOTHIES ================= */
 function renderRecipes(){
 const list=recipes.filter(r=>recipeFilter==="all"||favs.includes(r.id));
 $("recipeList").innerHTML=list.length?list.map(r=>{const n=recipes.indexOf(r)+1;const f=favs.includes(r.id);const open=openRecipe===r.id;
 return `<button type="button" class="flavor secondary" data-open="${r.id}" aria-expanded="${open}"><span class="nm"><b>${n}. ${escapeHtml(r.name)}</b>${f?" ♥":""}</span><span class="kc">~${r.kcal} kcal<span class="chev">›</span></span></button>`+(open?`<div class="detail"><h4>Ingredients</h4><ul>${r.ing.map(i=>`<li>${escapeHtml(i[1])} ${escapeHtml(i[0])}</li>`).join("")}</ul><h4>How to make it</h4><ol>${stepsFor(r).map(t=>`<li>${escapeHtml(t)}</li>`).join("")}</ol><div class="mealbuttons"><button type="button" class="secondary fav ${f?"on":""}" data-fav="${r.id}" aria-pressed="${f}">${f?"♥ Favorite":"♡ Add to favorites"}</button><button type="button" data-addsm="${r.id}">+ Add to today</button></div></div>`:"")}).join(""):`<p class="small">No favorites yet — open a flavor and tap ♡ to save it here.</p>`;
 document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{openRecipe=openRecipe===b.dataset.open?null:b.dataset.open;renderRecipes()}));
-document.querySelectorAll("[data-fav]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.fav;favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];localStorage.setItem("gf_favs",JSON.stringify(favs));renderRecipes()}));
-document.querySelectorAll("[data-addsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog.push(b.dataset.addsm);saveSmLog();renderSmLog();updateTotals();const o=b.textContent;b.textContent="✓ Added to today!";setTimeout(()=>{b.textContent=o},1200)}));
+document.querySelectorAll("[data-fav]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.fav;favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];save("gf_favs",favs);renderRecipes()}));
+document.querySelectorAll("[data-addsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog=load("gf_smlog_"+dateKey,[]);smoothieLog.push(b.dataset.addsm);saveSmLog();renderSmLog();const o=b.textContent;b.textContent="✓ Added to today!";setTimeout(()=>{b.textContent=o},1200)}));
 }
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{recipeFilter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));renderRecipes()}));
-function saveSmLog(){localStorage.setItem("gf_smlog_"+dateKey,JSON.stringify(smoothieLog))}
-function renderSmLog(){
-$("smLogCard").hidden=!smoothieLog.length;
-$("smLog").innerHTML=smoothieLog.map((id,i)=>{const r=recipes.find(x=>x.id===id);return r?`<div class="logrow"><span>${escapeHtml(r.name)} · <b>~${r.kcal} kcal</b></span><button type="button" class="secondary" data-rmsm="${i}">Remove</button></div>`:""}).join("");
-document.querySelectorAll("[data-rmsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog.splice(Number(b.dataset.rmsm),1);saveSmLog();renderSmLog();updateTotals()}));
-}
-/* shopping list */
 function renderShop(){
 $("shopPicks").innerHTML=recipes.map(r=>`<button type="button" class="secondary ${shopSel.includes(r.id)?"fav on":""}" data-pick="${r.id}">${shopSel.includes(r.id)?"✓ ":""}${escapeHtml(r.name)}</button>`).join("");
 const map={};
-recipes.filter(r=>shopSel.includes(r.id)).forEach(r=>r.ing.forEach(([n,q])=>{(map[n]=map[n]||[]).push(r.name)}));
+recipes.filter(r=>shopSel.includes(r.id)).forEach(r=>r.ing.forEach(([n])=>{(map[n]=map[n]||[]).push(r.name)}));
 const names=Object.keys(map).sort();
 $("shopList").innerHTML=names.length?names.map(n=>`<label class="checkrow"><input type="checkbox" data-shop="${escapeAttr(n)}" ${shopDone.includes(n)?"checked":""}><span>${escapeHtml(n)}<small>for ${escapeHtml(map[n].join(", "))}</small></span></label>`).join(""):"";
 $("shopHint").textContent=names.length?`${names.length} items for ${shopSel.length} recipe${shopSel.length>1?"s":""}. Tick items as you put them in your basket.`:"Tap the recipes you want this week to build your list.";
-document.querySelectorAll("[data-pick]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.pick;shopSel=shopSel.includes(id)?shopSel.filter(x=>x!==id):[...shopSel,id];localStorage.setItem("gf_shopsel",JSON.stringify(shopSel));renderShop()}));
-document.querySelectorAll("[data-shop]").forEach(b=>b.addEventListener("change",()=>{const n=b.dataset.shop;shopDone=b.checked?[...new Set([...shopDone,n])]:shopDone.filter(x=>x!==n);localStorage.setItem("gf_shopdone",JSON.stringify(shopDone));renderShop()}));
+document.querySelectorAll("[data-pick]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.pick;shopSel=shopSel.includes(id)?shopSel.filter(x=>x!==id):[...shopSel,id];save("gf_shopsel",shopSel);renderShop()}));
+document.querySelectorAll("[data-shop]").forEach(b=>b.addEventListener("change",()=>{const n=b.dataset.shop;shopDone=b.checked?[...new Set([...shopDone,n])]:shopDone.filter(x=>x!==n);save("gf_shopdone",shopDone);renderShop()}));
 }
-$("shopClear").addEventListener("click",()=>{shopDone=[];localStorage.setItem("gf_shopdone","[]");renderShop()});
-/* water */
-let water=Number(localStorage.getItem("gf_water_"+dateKey)||0);
-function renderWater(){$("waterText").textContent=`${water} glass${water===1?"":"es"} · ${(water*250).toLocaleString()} mL`;$("cups").textContent="💧".repeat(Math.min(water,12))}
-function setWater(n){water=Math.max(0,Math.min(20,n));localStorage.setItem("gf_water_"+dateKey,String(water));renderWater()}
-$("waterPlus").addEventListener("click",()=>setWater(water+1));
-$("waterMinus").addEventListener("click",()=>setWater(water-1));
-/* food log */
-let foodLog=load("gf_food_"+dateKey,"[]");
-function renderFood(){
-$("foodLog").innerHTML=foodLog.length?foodLog.map((f,i)=>`<div class="logrow"><span><span class="small">${escapeHtml(f.slot)}</span><br>${escapeHtml(f.name)} · <b>${Number(f.kcal)||0} kcal</b></span><button type="button" class="secondary" data-rmfood="${i}">Remove</button></div>`).join(""):`<p class="small">Nothing logged yet.</p>`;
-document.querySelectorAll("[data-rmfood]").forEach(b=>b.addEventListener("click",()=>{foodLog.splice(Number(b.dataset.rmfood),1);localStorage.setItem("gf_food_"+dateKey,JSON.stringify(foodLog));renderFood();updateTotals()}));
-}
-$("foodAdd").addEventListener("click",()=>{
-const name=$("foodName").value.trim();if(!name){$("foodName").focus();return}
-const kcal=Math.max(0,Math.min(3000,Number($("foodKcal").value)||0));
-foodLog.push({slot:$("foodSlot").value,name,kcal});localStorage.setItem("gf_food_"+dateKey,JSON.stringify(foodLog));
-$("foodName").value="";$("foodKcal").value="";renderFood();updateTotals();
-});
-/* weight log */
-let weights=load("gf_weights","{}");
-$("wDate").value=todayKey();
+$("shopClear").addEventListener("click",()=>{shopDone=[];save("gf_shopdone",[]);renderShop()});
+
+/* ================= BODY NUMBERS (shared) ================= */
+const wDates=()=>Object.keys(weights).sort();
+const latestWeight=()=>{const d=wDates();return d.length?weights[d[d.length-1]]:null};
+function heightCmFrom(ft,inch){ft=Number(ft);inch=Number(inch)||0;if(!(ft>0))return null;return Math.round((ft*12+inch)*2.54*10)/10}
+const heightCm=()=>heightCmFrom(profile.ft,profile.in);
+function healthyRange(cm){const m=cm/100;return{min:18.5*m*m,max:22.9*m*m,who:24.9*m*m}}
+function bmiCat(b){return b<18.5?"Underweight":b<23?"Healthy range":b<25?"Overweight (just above healthy range)":b<30?"Obese class I (above healthy range)":"Obese class II (above healthy range)"}
+function suggestedGoal(cm){return cm?Math.floor(healthyRange(cm).max*2)/2:null}
+function goalKg(){const g=Number(profile.goal);if(g>0)return g;return suggestedGoal(heightCm())}
+function ageFrom(b){if(!b)return null;const d=new Date(b+"T00:00:00");if(isNaN(d))return null;const n=new Date();let a=n.getFullYear()-d.getFullYear();if(n.getMonth()<d.getMonth()||(n.getMonth()===d.getMonth()&&n.getDate()<d.getDate()))a--;return a>=0?a:null}
+
+/* ================= WEIGHT ================= */
 function renderWeight(){
-const dates=Object.keys(weights).sort();
+const dates=wDates();
 $("wCount").textContent=dates.length;
 $("wLatest").textContent=dates.length?weights[dates[dates.length-1]].toFixed(1):"–";
 if(dates.length>1){const d=weights[dates[dates.length-1]]-weights[dates[0]];$("wChange").textContent=(d>0?"+":"")+d.toFixed(1)}else $("wChange").textContent="–";
-const rows=[...dates].reverse().map((d,i,arr)=>{const prev=weights[dates[dates.length-1-i-1]];const diff=prev===undefined?null:weights[d]-prev;
-const label=new Date(d+"T00:00:00").toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"});
+const rows=[...dates].reverse().map((d,i)=>{const prev=weights[dates[dates.length-2-i]];const diff=prev===undefined?null:weights[d]-prev;
 const ch=diff===null?"–":`<span class="${diff>0?"up":diff<0?"down":""}">${diff>0?"+":""}${diff.toFixed(1)}</span>`;
-return `<tr><td>${label}</td><td class="num"><b>${weights[d].toFixed(1)}</b></td><td class="num">${ch}</td><td class="num"><button type="button" class="secondary" data-wdel="${d}" aria-label="Delete ${label}">✕</button></td></tr>`}).join("");
+return `<tr><td>${fmtKeyDay(d)}</td><td class="num"><b>${weights[d].toFixed(1)}</b></td><td class="num">${ch}</td><td class="num"><button type="button" class="secondary" data-wdel="${d}" aria-label="Delete ${fmtKeyDay(d)}">✕</button></td></tr>`}).join("");
 $("wTable").innerHTML=dates.length?`<table class="wt"><thead><tr><th>Date</th><th class="num">kg</th><th class="num">vs previous</th><th></th></tr></thead><tbody>${rows}</tbody></table>`:`<p class="small">No weights yet. Add your first one above.</p>`;
-document.querySelectorAll("[data-wdel]").forEach(b=>b.addEventListener("click",()=>{if(confirm("Delete this weight entry?")){delete weights[b.dataset.wdel];localStorage.setItem("gf_weights",JSON.stringify(weights));renderWeight()}}));
+document.querySelectorAll("[data-wdel]").forEach(b=>b.addEventListener("click",()=>{if(confirm("Delete this weight entry?")){delete weights[b.dataset.wdel];save("gf_weights",weights);renderWeight();renderProfile()}}));
+renderChart();renderGoal();
 }
+function renderGoal(){
+const g=goalKg(),dates=wDates(),cur=latestWeight();
+$("goalCard").hidden=!(g&&cur!==null);
+if(!(g&&cur!==null))return;
+const start=weights[dates[0]];
+const togo=cur-g;
+let pct=start>g?Math.max(0,Math.min(100,(start-cur)/(start-g)*100)):(cur<=g?100:0);
+$("goalBar").style.width=pct+"%";
+if(togo<=0){$("goalText").innerHTML=`🎉 <b>You're at or below your goal of ${g.toFixed(1)} kg!</b> Keep nourishing yourself well.`;$("goalSub").textContent="Goal reached.";}
+else{
+const weeks=Math.ceil(togo/0.5);
+$("goalText").innerHTML=`<b>${cur.toFixed(1)} kg</b> now → goal <b>${g.toFixed(1)} kg</b> · <b>${togo.toFixed(1)} kg</b> to go`;
+$("goalSub").textContent=`${Math.round(pct)}% there. At a gentle 0.5 kg per week that's roughly ${weeks} weeks (about ${Math.round(weeks/4.345)} months). Small steady steps count.`;
+}
+}
+function renderChart(){
+const all=wDates().slice(-60);const g=goalKg();
+if(!all.length){$("wChart").innerHTML=`<p class="small">Your chart appears here after you log a weight.</p>`;return}
+const W=320,H=180,pl=38,pr=12,pt=14,pb=26;
+const vals=all.map(d=>weights[d]);
+let lo=Math.min(...vals,g??Infinity),hi=Math.max(...vals,g??-Infinity);
+if(hi-lo<2){lo-=1;hi+=1}else{lo-=1;hi+=1}
+const t0=new Date(all[0]+"T00:00:00").getTime(),t1=new Date(all[all.length-1]+"T00:00:00").getTime();
+const X=d=>all.length===1||t1===t0?pl+(W-pl-pr)/2:pl+((new Date(d+"T00:00:00").getTime()-t0)/(t1-t0))*(W-pl-pr);
+const Y=v=>pt+(hi-v)/(hi-lo)*(H-pt-pb);
+let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weight over time">`;
+for(let i=0;i<=3;i++){const v=hi-(hi-lo)*i/3;const y=Y(v);s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#f3dbe6" stroke-width="1"/><text x="${pl-5}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#7a6670">${v.toFixed(0)}</text>`}
+if(g){const y=Y(g);s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#3f7258" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${W-pr}" y="${y-4}" text-anchor="end" font-size="10" fill="#3f7258" font-weight="700">goal ${g.toFixed(1)}</text>`}
+if(all.length>1)s+=`<polyline fill="none" stroke="#e07aa8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${all.map(d=>X(d).toFixed(1)+","+Y(weights[d]).toFixed(1)).join(" ")}"/>`;
+all.forEach(d=>{s+=`<circle cx="${X(d).toFixed(1)}" cy="${Y(weights[d]).toFixed(1)}" r="4" fill="#fff" stroke="#d1578f" stroke-width="2"/>`});
+const last=all[all.length-1];s+=`<text x="${Math.min(X(last),W-pr-10).toFixed(1)}" y="${(Y(weights[last])-9).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="#6a3350">${weights[last].toFixed(1)}</text>`;
+s+=`<text x="${pl}" y="${H-6}" font-size="10" fill="#7a6670">${fmtDay(t0)}</text>`;
+if(all.length>1)s+=`<text x="${W-pr}" y="${H-6}" text-anchor="end" font-size="10" fill="#7a6670">${fmtDay(t1)}</text>`;
+$("wChart").innerHTML=s+"</svg>";
+}
+$("wDate").value=todayKey();
 $("wSave").addEventListener("click",()=>{
 const d=$("wDate").value||todayKey();const kg=Number($("wKg").value);
 if(!(kg>=20&&kg<=300)){$("wMsg").textContent="Please enter a weight between 20 and 300 kg.";return}
-weights[d]=Math.round(kg*10)/10;localStorage.setItem("gf_weights",JSON.stringify(weights));
-$("wKg").value="";$("wMsg").textContent="Saved ✓ Saving again for the same date replaces that day's entry.";renderWeight();
+weights[d]=Math.round(kg*10)/10;save("gf_weights",weights);
+$("wKg").value="";$("wMsg").textContent="Saved ✓ Saving again for the same date replaces that day's entry.";renderWeight();renderProfile();
 });
-renderRecipes();renderShop();renderSmLog();renderWater();renderFood();renderWeight();
-renderMeals();
+/* measurements */
+$("mDate").value=todayKey();
+function renderMeas(){
+const dates=Object.keys(meas).sort().reverse();
+$("mTable").innerHTML=dates.length?`<table class="wt"><thead><tr><th>Date</th><th class="num">Waist</th><th class="num">Hips</th><th></th></tr></thead><tbody>${dates.map(d=>`<tr><td>${fmtKeyDay(d)}</td><td class="num">${meas[d].waist?meas[d].waist.toFixed(1):"–"}</td><td class="num">${meas[d].hips?meas[d].hips.toFixed(1):"–"}</td><td class="num"><button type="button" class="secondary" data-mdel="${d}" aria-label="Delete ${fmtKeyDay(d)}">✕</button></td></tr>`).join("")}</tbody></table>`:"";
+document.querySelectorAll("[data-mdel]").forEach(b=>b.addEventListener("click",()=>{if(confirm("Delete these measurements?")){delete meas[b.dataset.mdel];save("gf_meas",meas);renderMeas()}}));
+}
+$("mSave").addEventListener("click",()=>{
+const d=$("mDate").value||todayKey();const w=Number($("mWaist").value),h=Number($("mHips").value);
+const ok=v=>v>=30&&v<=250;
+if(!ok(w)&&!ok(h)){$("mMsg").textContent="Enter a waist or hips measurement in cm (30–250).";return}
+const prev=meas[d]||{};meas[d]={waist:ok(w)?w:prev.waist||null,hips:ok(h)?h:prev.hips||null};save("gf_meas",meas);
+$("mWaist").value="";$("mHips").value="";$("mMsg").textContent="Saved ✓";renderMeas();
+});
+
+/* ================= PROFILE ================= */
+function renderAvatars(){
+const html=profile.photo?`<img src="${profile.photo}" alt="Your photo">`:"🌸";
+$("avatar").innerHTML=html;$("heroAvatar").innerHTML=html;
+const first=(profile.name||"").trim().split(/\s+/)[0];
+$("greet").textContent=first?`Hi, ${first} 💗`:"Your gentle daily routine ✿";
+$("profTitle").textContent=first?`${first}'s profile`:"My profile";
+}
+function renderProfile(){
+$("pName").value=profile.name||"";$("pBirth").value=profile.birthday||"";$("pAddress").value=profile.address||"";
+$("pFt").value=profile.ft??"";$("pIn").value=profile.in??"";
+const lw=latestWeight();$("pWeight").value=lw!==null?lw.toFixed(2):(profile.weight||"");
+$("pGoal").value=profile.goal||"";
+updateDerived();renderAvatars();
+}
+function sleepStats(){
+const now=Date.now(),last7=sleepLog.filter(e=>e.end>=now-7*864e5);
+const avg=last7.length?last7.reduce((s,e)=>s+entryMins(e),0)/last7.length:null;
+const last=sleepLog.length?[...sleepLog].sort((a,b)=>b.end-a.end)[0]:null;
+return{avg,last,n:sleepLog.length,n7:last7.length};
+}
+function updateDerived(){
+const age=ageFrom($("pBirth").value);$("pAge").textContent=age===null?"–":age+" years old";
+const cm=heightCmFrom($("pFt").value,$("pIn").value);
+const kg=Number($("pWeight").value);const g=Number($("pGoal").value);
+const sug=suggestedGoal(cm);
+$("pGoalHint").textContent=sug?`Leave blank to use ${sug.toFixed(1)} kg — the top of your healthy BMI range.`:"Enter your height to get a suggested goal.";
+const row=(h,p,v)=>`<div class="meal"><div><h3>${h}</h3><p>${p}</p></div><div class="kcal">${v}</div></div>`;
+let out="";
+out+=row("Height",cm?`${$("pFt").value||0} ft ${$("pIn").value||0} in`:"Add your height above",cm?cm.toFixed(1)+" cm":"–");
+if(cm&&kg>=20){const bmi=kg/((cm/100)**2);out+=row("BMI",`Asia-Pacific category: <b>${bmiCat(bmi)}</b>`,bmi.toFixed(1))}
+else out+=row("BMI","Add height and weight","–");
+if(cm){const h=healthyRange(cm);out+=row("Healthy weight for your height",`BMI 18.5–22.9. (International WHO range goes up to ${h.who.toFixed(1)} kg.)`,`${h.min.toFixed(1)}–${h.max.toFixed(1)} kg`)}
+const goal=g>0?g:sug;
+if(goal){out+=row("Desired weight",g>0?"Your chosen goal":"Suggested: top of your healthy range",goal.toFixed(1)+" kg");
+if(kg>=20){const diff=kg-goal;out+=diff>0?row("To reach your goal",`About ${Math.ceil(diff/0.5)} weeks at a gentle 0.5 kg per week`,diff.toFixed(1)+" kg"):row("Goal","You're at or below this goal 🎉","✓");
+if(kg>=20&&kg>goal)out+=row("First small milestone","Losing 5% of your weight already benefits health",(kg*0.95).toFixed(1)+" kg");}
+if(cm&&g>0&&g<healthyRange(cm).min)out+=`<div class="notice" style="margin:8px 0">That goal is below the healthy BMI range for your height. Please talk to a doctor or dietitian before aiming that low.</div>`}
+const st=sleepStats();
+out+=row("Sleep",st.n?`Last sleep ${fmtDur(entryMins(st.last))}${st.avg!==null?` · 7-day average ${fmtDur(st.avg)}`:""}. Adult goal: 7–9 hours.`:"Nothing logged yet — use the Sleep tab.",st.avg!==null?fmtDur(st.avg):"–");
+$("pDerived").innerHTML=out;
+}
+["pBirth","pFt","pIn","pWeight","pGoal"].forEach(id=>$(id).addEventListener("input",updateDerived));
+$("pSave").addEventListener("click",()=>{
+const g=Number($("pGoal").value);
+profile={...profile,name:$("pName").value.trim(),birthday:$("pBirth").value,address:$("pAddress").value.trim(),ft:$("pFt").value===""?null:Number($("pFt").value),in:$("pIn").value===""?null:Number($("pIn").value),goal:(g>=20&&g<=300)?g:""};
+const w=Number($("pWeight").value),lw=latestWeight();let msg="Saved ✓";
+if(w>=20&&w<=300&&(lw===null||Math.abs(w-lw)>=0.05)){weights[todayKey()]=Math.round(w*10)/10;save("gf_weights",weights);msg="Saved ✓ Your weight was added to today's weight log."}
+save("gf_profile",profile);$("pMsg").textContent=msg;
+renderProfile();renderWeight();
+});
+$("photoIn").addEventListener("change",e=>{
+const f=e.target.files[0];if(!f)return;
+const r=new FileReader();
+r.onload=()=>{const img=new Image();
+img.onload=()=>{const S=360,c=document.createElement("canvas");c.width=c.height=S;const side=Math.min(img.width,img.height);
+c.getContext("2d").drawImage(img,(img.width-side)/2,(img.height-side)/2,side,side,0,0,S,S);
+profile.photo=c.toDataURL("image/jpeg",.85);save("gf_profile",profile);renderAvatars()};
+img.onerror=()=>alert("Sorry, I couldn't read that photo. Try another one.");
+img.src=r.result};
+r.readAsDataURL(f);e.target.value="";
+});
+$("photoDel").addEventListener("click",()=>{delete profile.photo;save("gf_profile",profile);renderAvatars()});
+
+/* ================= SLEEP ================= */
+const entryMins=e=>Math.round((e.end-(e.asleep||e.start))/60000);
+function renderSleepStatus(){
+const s=sleepSession;
+if(s){
+$("sleepStatus").innerHTML=`<div class="small">Sleeping since</div><div class="big">${fmtTime(s.start)}</div><div class="small">${fmtDur((Date.now()-s.start)/60000)} so far${s.opens&&s.opens.length?` · 📱 opened app ${s.opens.length}×`:""}</div>`;
+$("sleepBtn").textContent="☀️ I'm awake";$("sleepBtn").classList.add("awake");
+}else{
+$("sleepStatus").innerHTML=`<div class="big">🌙</div><div class="small">Ready for bed? Tap the button when you go to sleep.</div>`;
+$("sleepBtn").textContent="🌙 Sleep";$("sleepBtn").classList.remove("awake");
+}
+}
+function renderSleep(){
+renderSleepStatus();
+const st=sleepStats();
+$("slLast").textContent=st.last?fmtDur(entryMins(st.last)):"–";
+$("slAvg").textContent=st.avg!==null?fmtDur(st.avg):"–";
+$("slCount").textContent=st.n;
+$("slBar").style.width=st.avg!==null?Math.min(100,st.avg/480*100)+"%":"0%";
+const rows=[...sleepLog].sort((a,b)=>b.end-a.end).slice(0,60).map(e=>{
+const began=e.asleep||e.start;
+const note=(e.asleep&&e.asleep-e.start>=10*60000?`<br><span class="small">in bed ${fmtTime(e.start)}</span>`:"")+(e.opens&&e.opens.length?`<br><span class="small">📱 opened app ${e.opens.length}× (${e.opens.slice(0,4).map(fmtTime).join(", ")}${e.opens.length>4?"…":""})</span>`:"");
+return `<tr><td>${fmtDay(e.end)}</td><td>${fmtTime(began)} → ${fmtTime(e.end)}${note}</td><td class="num"><b>${fmtDur(entryMins(e))}</b></td><td class="num" style="white-space:nowrap"><button type="button" class="secondary" data-sedit="${e.id}" aria-label="Edit">✎</button> <button type="button" class="secondary" data-sdel="${e.id}" aria-label="Delete">✕</button></td></tr>`}).join("");
+$("sleepTable").innerHTML=sleepLog.length?`<table class="wt"><thead><tr><th>Woke</th><th>Slept</th><th class="num">Hours</th><th></th></tr></thead><tbody>${rows}</tbody></table>`:`<p class="small">No sleep logged yet. Tap Sleep tonight 🌙</p>`;
+document.querySelectorAll("[data-sedit]").forEach(b=>b.addEventListener("click",()=>openSleepEditor(sleepLog.find(e=>e.id===b.dataset.sedit))));
+document.querySelectorAll("[data-sdel]").forEach(b=>b.addEventListener("click",()=>{if(confirm("Delete this sleep entry?")){sleepLog=sleepLog.filter(e=>e.id!==b.dataset.sdel);save("gf_sleep",sleepLog);renderSleep();updateDerived()}}));
+}
+function startSleep(){sleepSession={start:Date.now(),opens:[],snooze:0};save("gf_sleepnow",sleepSession);renderSleep()}
+function endSleep(fromPrompt){
+if(!sleepSession)return null;
+const end=Date.now();let opens=[...(sleepSession.opens||[])];
+if(fromPrompt&&opens.length&&end-opens[opens.length-1]<120000)opens.pop();
+const e={id:String(end)+Math.floor(Math.random()*1000),start:sleepSession.start,asleep:null,end,opens};
+sleepLog.push(e);save("gf_sleep",sleepLog);
+sleepSession=null;try{localStorage.removeItem("gf_sleepnow")}catch(x){}
+renderSleep();updateDerived();
+return e;
+}
+$("sleepBtn").addEventListener("click",()=>{
+if(sleepSession){const e=endSleep(false);const m=entryMins(e);if(m<30||m>16*60)openSleepEditor(e,"That looks unusual — check the times:")}
+else startSleep();
+});
+function openSleepEditor(e,msg){
+editingSleep=e?e.id:null;const now=Date.now();
+const d=e||{start:now-8*3600e3,asleep:null,end:now};
+$("sleepEditorTitle").textContent=e?"Edit sleep":"Add sleep manually";
+$("sStart").value=toLocalInput(d.start);$("sAsleep").value=d.asleep?toLocalInput(d.asleep):"";$("sEnd").value=toLocalInput(d.end);
+$("sMsg").textContent=msg||"";$("sleepEditor").hidden=false;
+$("sleepEditor").scrollIntoView({behavior:"smooth",block:"center"});
+}
+$("sAdd").addEventListener("click",()=>openSleepEditor(null));
+$("sCancel").addEventListener("click",()=>{$("sleepEditor").hidden=true;editingSleep=null});
+$("sSave").addEventListener("click",()=>{
+const start=new Date($("sStart").value).getTime(),end=new Date($("sEnd").value).getTime();
+const asleep=$("sAsleep").value?new Date($("sAsleep").value).getTime():null;
+if(isNaN(start)||isNaN(end)){$("sMsg").textContent="Please fill in when you went to bed and when you woke up.";return}
+if(end<=start){$("sMsg").textContent="Wake-up time must be after bedtime.";return}
+if(end-start>24*3600e3){$("sMsg").textContent="That's longer than 24 hours — please check the dates.";return}
+if(asleep!==null&&(isNaN(asleep)||asleep<start||asleep>=end)){$("sMsg").textContent="'Fell asleep' must be between bedtime and wake-up.";return}
+const i=sleepLog.findIndex(e=>e.id===editingSleep);
+if(i>=0)sleepLog[i]={...sleepLog[i],start,asleep,end};
+else sleepLog.push({id:String(Date.now())+Math.floor(Math.random()*1000),start,asleep,end,opens:[]});
+save("gf_sleep",sleepLog);$("sleepEditor").hidden=true;editingSleep=null;renderSleep();updateDerived();
+});
+/* "are you awake?" prompt when the app is reopened during a sleep session */
+function checkSleepReturn(){
+sleepSession=load("gf_sleepnow",null);
+if(!sleepSession||!$("sleepModal").hidden)return;
+const now=Date.now();
+if(now-sleepSession.start<20*60000)return;
+if(sleepSession.snooze&&now<sleepSession.snooze)return;
+sleepSession.opens=sleepSession.opens||[];
+const last=sleepSession.opens[sleepSession.opens.length-1];
+if(!last||now-last>60000)sleepSession.opens.push(now);
+save("gf_sleepnow",sleepSession);
+$("smText").textContent=`You tapped Sleep at ${fmtTime(sleepSession.start)} and just opened the app at ${fmtTime(now)} (${fmtDur((now-sleepSession.start)/60000)} later). Are you awake now?`;
+$("sleepModal").hidden=false;
+renderSleepStatus();
+}
+$("smAwake").addEventListener("click",()=>{
+$("sleepModal").hidden=true;
+const e=endSleep(true);
+showTab("sleep");
+if(e)openSleepEditor(e,"Saved! If you couldn't fall asleep right away, set when you actually fell asleep, or fix the wake-up time.");
+});
+$("smStill").addEventListener("click",()=>{
+$("sleepModal").hidden=true;
+if(sleepSession){sleepSession.snooze=Date.now()+10*60000;save("gf_sleepnow",sleepSession);renderSleepStatus()}
+});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkSleepReturn()});
+window.addEventListener("pageshow",checkSleepReturn);
+setInterval(()=>{if(sleepSession&&!document.hidden)renderSleepStatus()},30000);
+
+/* ================= MORE: weekly report ================= */
+function renderWeekly(){
+const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d)}
+const data=days.map(d=>{const k=keyOf(d);return{k,d,kcal:calcDay(k),water:Number(load("gf_water_"+k,0))||0}});
+const logged=data.filter(x=>x.kcal>0);
+const avg=logged.length?Math.round(logged.reduce((s,x)=>s+x.kcal,0)/logged.length):null;
+const maxV=Math.max(settings.target*1.15,...data.map(x=>x.kcal),1);
+const bars=data.map(x=>`<div class="col"><div class="v">${x.kcal?x.kcal:""}</div><div class="wrap"><div class="b ${x.kcal>settings.target?"over":""}" style="height:${Math.max(3,Math.round(x.kcal/maxV*100))}px" title="${x.k}"></div></div><div class="d">${x.d.toLocaleDateString("en",{weekday:"short"}).slice(0,2)}</div></div>`).join("");
+const waterAvg=Math.round(data.reduce((s,x)=>s+x.water,0)/7*10)/10;
+const st=sleepStats();
+const wk=wDates().filter(d=>d>=data[0].k);
+const wchg=wk.length>1?weights[wk[wk.length-1]]-weights[wk[0]]:null;
+const row=(h,v)=>`<div class="logrow"><span>${h}</span><b>${v}</b></div>`;
+$("weekly").innerHTML=`<div class="small">Calories per day (last 7 days)</div><div class="bars">${bars}</div>
+<div style="margin-top:12px">${row("Days with food logged",logged.length+" of 7")}${row("Average on logged days",avg!==null?avg.toLocaleString()+" kcal":"–")}${row("Water per day",waterAvg+" glasses")}${row("Sleep average",st.avg!==null&&st.n7?fmtDur(st.avg):"–")}${row("Weight change this week",wchg!==null?(wchg>0?"+":"")+wchg.toFixed(1)+" kg":"–")}</div>
+<p class="small" style="margin-top:8px">Rose bars mean a day above your ${settings.target.toLocaleString()} kcal target — no need to worry, just keep going. 💗</p>`;
+}
+/* backup */
+$("exportBtn").addEventListener("click",()=>{
+const data={};
+for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith("gf_")){try{data[k]=JSON.parse(localStorage.getItem(k))}catch(e){}}}
+const blob=new Blob([JSON.stringify({app:"girlie-fuel",version:1,exported:new Date().toISOString(),data},null,1)],{type:"application/json"});
+const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="girlie-fuel-backup-"+todayKey()+".json";document.body.appendChild(a);a.click();a.remove();
+setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+$("bkMsg").textContent="Backup file created ✓ (check your Downloads / Files app).";
+});
+$("importIn").addEventListener("change",e=>{
+const f=e.target.files[0];if(!f)return;
+const r=new FileReader();
+r.onload=()=>{
+try{
+const j=JSON.parse(r.result);if(!j||j.app!=="girlie-fuel"||!j.data||typeof j.data!=="object")throw new Error("bad");
+const keys=Object.keys(j.data).filter(k=>k.startsWith("gf_"));
+if(!confirm(`Restore ${keys.length} saved items from this file? Items with the same name will be replaced (your weights, measurements and profile are merged).`))return;
+const merge=["gf_weights","gf_meas","gf_profile"];
+keys.forEach(k=>{let v=j.data[k];if(merge.includes(k)&&v&&typeof v==="object"){v={...load(k,{}),...v}}localStorage.setItem(k,JSON.stringify(v))});
+alert("Restored ✓");location.reload();
+}catch(err){$("bkMsg").textContent="That doesn't look like a Girlie Fuel backup file."}
+};
+r.readAsText(f);e.target.value="";
+});
+
+/* ================= navigation ================= */
+function showTab(tab){
+document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!==tab);
+const navTab=(tab==="shake"||tab==="edit")?"more":tab;
+document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===navTab));
+if(tab==="edit"){$("target").value=settings.target;$("fiberTarget").value=settings.fiber}
+if(tab==="profile"){$("pMsg").textContent="";renderProfile()}
+if(tab==="weight")renderWeight();
+if(tab==="sleep")renderSleep();
+if(tab==="more")renderWeekly();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.go)));
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+/* ================= start ================= */
+$("date").value=dateKey;
+loadDate();renderRecipes();renderShop();renderWeight();renderMeas();renderProfile();renderSleep();
+checkSleepReturn();
 </script>
 </body>
 </html>
