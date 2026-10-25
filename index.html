@@ -28,6 +28,10 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 .water{display:flex;align-items:center;justify-content:space-between;gap:12px}.water .ctrl{display:flex;align-items:center;gap:10px}.water .ctrl button{width:42px;height:42px;padding:0;font-size:20px}.water strong{font-size:22px;min-width:28px;text-align:center}.cups{font-size:20px;letter-spacing:2px;margin-top:8px;min-height:26px}
 .logrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #f4e8ee;font-size:14px}.logrow:first-of-type{border-top:0}.logrow button{padding:6px 10px;font-size:12px}
 .shop label.checkrow{margin:8px 0}.shop .checkrow span small{display:block;color:var(--muted)}.shop .checkrow input:checked+span{text-decoration:line-through;opacity:.55}
+.flavor{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:#fff7fa;border:1px solid var(--line);margin:8px 0 0;padding:14px}.flavor .nm{font-size:15px}.flavor .kc{font-weight:800;color:#985577;white-space:nowrap;font-size:13px}.flavor .chev{transition:transform .15s;display:inline-block;margin-left:6px}.flavor[aria-expanded=true]{background:#f6d6e4}.flavor[aria-expanded=true] .chev{transform:rotate(90deg)}
+.detail{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 14px 14px;margin-top:6px}.detail h4{margin:12px 0 4px;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#a05e7d}.detail ul,.detail ol{margin:4px 0 0;padding-left:22px;font-size:14px;line-height:1.65}.detail ol li{margin-bottom:4px}
+.foodform{display:grid;gap:8px;margin-top:6px}.foodform .fieldgrid{grid-template-columns:1fr 110px}
+table.wt{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}table.wt th{text-align:left;font-size:12px;color:var(--muted);padding:8px 6px;border-bottom:2px solid var(--line)}table.wt td{padding:10px 6px;border-bottom:1px solid #f4e8ee}table.wt td.num,table.wt th.num{text-align:right}.up{color:#b0506f;font-weight:700}.down{color:var(--green);font-weight:700}table.wt button{padding:5px 9px;font-size:12px}
 @media(min-width:540px){.hero h1{font-size:36px}.summary{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
@@ -54,6 +58,16 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 <div id="mealList"></div>
 <div class="actions"><button id="resetDay" class="secondary">Uncheck all meals</button><button id="editBtn">Edit daily target</button></div>
 </div>
+<div class="card">
+<h2>Log what I ate 📝</h2>
+<p class="small">Eating something different today? Add it here and it counts toward today's calories. Each day has its own log — use the date at the top to open another day.</p>
+<div class="foodform">
+<select id="foodSlot" aria-label="Meal"><option>Breakfast</option><option>Lunch</option><option>Snack</option><option>Dinner</option><option>Other</option></select>
+<div class="fieldgrid"><input id="foodName" placeholder="What did you eat? e.g. Chicken adobo + rice" maxlength="80"><input id="foodKcal" type="number" inputmode="numeric" min="0" max="3000" placeholder="kcal"></div>
+<button type="button" id="foodAdd" style="width:100%">+ Add to today's log</button>
+</div>
+<div id="foodLog" style="margin-top:10px"></div>
+</div>
 <div class="card" id="smLogCard" hidden>
 <h2>Smoothies today 🥤</h2>
 <div id="smLog"></div>
@@ -74,7 +88,7 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 <section id="smoothies" hidden>
 <div class="card">
 <h2>🥤 Smoothie menu</h2>
-<p class="small">7 blends with low-fat milk, oats and chia seeds. No added sugar, honey or syrup — the sweetness comes from the fruit. Calories are estimates and vary with fruit size and your milk label.</p>
+<p class="small">7 blends with low-fat milk, oats and 1 tbsp chia seeds. No added sugar, honey or syrup — the sweetness comes from the fruit. <b>Tap a flavor</b> to see the ingredients and how to make it. Calories are estimates.</p>
 <div class="chips"><button type="button" class="chip active" data-filter="all">All 7</button><button type="button" class="chip" data-filter="fav">♥ Favorites</button></div>
 <div id="recipeList"></div>
 </div>
@@ -98,6 +112,24 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 </div>
 <div class="card"><h2>Quick ingredient guide</h2><div class="meal"><div><h3>Banana</h3><p>1 medium banana</p></div><div class="kcal">~105 kcal</div></div><div class="meal"><div><h3>Rolled oats</h3><p>½ cup (about 40 g)</p></div><div class="kcal">~150 kcal</div></div><div class="meal"><div><h3>Low-fat milk</h3><p>1 cup (240 mL; verify label)</p></div><div class="kcal">~120 kcal</div></div></div>
 </section>
+<section id="weight" hidden>
+<div class="card">
+<h2>⚖️ Weight log</h2>
+<div class="summary" style="grid-template-columns:repeat(3,1fr)">
+<div class="metric"><strong id="wLatest">–</strong><span>latest (kg)</span></div>
+<div class="metric"><strong id="wChange">–</strong><span>change since first</span></div>
+<div class="metric"><strong id="wCount">0</strong><span>entries</span></div>
+</div>
+<div class="fieldgrid" style="margin-top:12px"><div><label for="wDate">Date</label><input id="wDate" type="date"></div><div><label for="wKg">Weight (kg)</label><input id="wKg" type="number" inputmode="decimal" step="0.1" min="20" max="300" placeholder="e.g. 58.4"></div></div>
+<button type="button" id="wSave" style="width:100%;margin-top:12px">Save weight</button>
+<p class="small" id="wMsg" style="margin-top:8px">Saving again for the same date replaces that day's entry.</p>
+</div>
+<div class="card">
+<h2>Daily weights</h2>
+<div id="wTable"></div>
+<div class="notice" style="margin-top:12px">Weight naturally moves up and down day to day with water, salt and meals. Weigh at the same time each day (for example, morning after using the bathroom) and look at the weekly trend, not a single day.</div>
+</div>
+</section>
 <section id="edit" hidden>
 <div class="card">
 <h2>Personalize your plan ⚙️</h2>
@@ -109,7 +141,7 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 <div class="card"><h2>Meal plan notes</h2><p class="small">These calorie counts are estimates and vary with portion size, cooking oil, recipes, and product labels. You can use this app to browse your plan and track checked meals; it does not replace professional nutrition advice.</p></div>
 </section>
 <nav>
-<button class="active" data-tab="today">Today</button><button data-tab="smoothies">Smoothies</button><button data-tab="shake">My shake</button><button data-tab="edit">Settings</button>
+<button class="active" data-tab="today">Today</button><button data-tab="smoothies">Smoothies</button><button data-tab="shake">My shake</button><button data-tab="weight">Weight</button><button data-tab="edit">Settings</button>
 </nav>
 <div class="foot">Made with love for your everyday goals 💗 · Estimates are not exact. If you feel persistently weak, dizzy, unusually hungry, or your exercise recovery suffers, consider increasing intake and consulting a qualified health professional.</div>
 </main>
@@ -130,27 +162,29 @@ let checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");
 let habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");
 function saveChecked(){localStorage.setItem("gf_checked_"+dateKey,JSON.stringify(checked))}
 let mealOverrides=JSON.parse(localStorage.getItem("gf_meals")||"{}");
-function getMeals(){return defaultMeals.map(m=>({...m,...(mealOverrides[m.id]||{})}))}
+let dayMeals=JSON.parse(localStorage.getItem("gf_daymeals_"+dateKey)||"{}");
+function getMeals(){return defaultMeals.map(m=>({...m,...(mealOverrides[m.id]||{}),...(dayMeals[m.id]||{})}))}
 function renderMeals(){
 const meals=getMeals();
 $("mealList").innerHTML=meals.map(m=>`<div class="meal"><div><div class="small">${m.time}</div><h3>${escapeHtml(m.name)}</h3><p>${escapeHtml(m.desc)}</p><label class="checkrow" style="margin-bottom:0"><input type="checkbox" data-meal="${m.id}" ${checked[m.id]?"checked":""}><span>I've had this</span></label><div class="mealbuttons"><button type="button" class="secondary" data-edit="${m.id}">✏️ Edit meal</button></div><div class="editmeal" id="editor-${m.id}">
 <label>Meal name</label><input id="name-${m.id}" value="${escapeAttr(m.name)}">
 <label>Food and portion details</label><textarea id="desc-${m.id}" rows="3">${escapeHtml(m.desc)}</textarea>
 <div class="fieldgrid"><div><label>Calories (kcal)</label><input id="kcal-${m.id}" type="number" min="0" max="3000" value="${m.kcal}"></div><div><label>Fiber (g)</label><input id="fiber-${m.id}" type="number" min="0" max="100" value="${m.fiber}"></div></div>
-<div class="actions"><button type="button" data-save="${m.id}">Save meal</button><button type="button" class="secondary" data-cancel="${m.id}">Cancel</button></div>
+<p class="small" style="margin:8px 0 0">Changes apply to this day only.</p><div class="actions"><button type="button" data-save="${m.id}">Save meal</button><button type="button" class="secondary" data-usual="${m.id}">Use usual meal</button><button type="button" class="secondary" data-cancel="${m.id}">Cancel</button></div>
 </div></div><div class="kcal">${m.kcal} kcal</div></div>`).join("");
 document.querySelectorAll("[data-meal]").forEach(el=>el.addEventListener("change",()=>{checked[el.dataset.meal]=el.checked;saveChecked();updateTotals()}));
 document.querySelectorAll("[data-edit]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.edit).classList.toggle("open")));
 document.querySelectorAll("[data-cancel]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.cancel).classList.remove("open")));
 document.querySelectorAll("[data-save]").forEach(el=>el.addEventListener("click",()=>{
 const id=el.dataset.save;const name=$("name-"+id).value.trim()||"My meal";const desc=$("desc-"+id).value.trim();const kcal=Math.max(0,Math.min(3000,Number($("kcal-"+id).value)||0));const fiber=Math.max(0,Math.min(100,Number($("fiber-"+id).value)||0));
-mealOverrides[id]={name,desc,kcal,fiber};localStorage.setItem("gf_meals",JSON.stringify(mealOverrides));renderMeals();
-}));updateTotals()
+dayMeals[id]={name,desc,kcal,fiber};localStorage.setItem("gf_daymeals_"+dateKey,JSON.stringify(dayMeals));renderMeals();
+}));
+document.querySelectorAll("[data-usual]").forEach(el=>el.addEventListener("click",()=>{delete dayMeals[el.dataset.usual];localStorage.setItem("gf_daymeals_"+dateKey,JSON.stringify(dayMeals));renderMeals()}));updateTotals()
 }
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function escapeAttr(s){return escapeHtml(s)}
 function updateTotals(){
-const total=getMeals().reduce((s,m)=>s+(checked[m.id]?Number(m.kcal):0),0)+smoothieLog.reduce((s,id)=>s+((recipes.find(r=>r.id===id)||{}).kcal||0),0);
+const total=getMeals().reduce((s,m)=>s+(checked[m.id]?Number(m.kcal):0),0)+foodLog.reduce((s,f)=>s+(Number(f.kcal)||0),0)+smoothieLog.reduce((s,id)=>s+((recipes.find(r=>r.id===id)||{}).kcal||0),0);
 $("targetText").textContent=Number(settings.target).toLocaleString();
 $("eatenText").textContent=total.toLocaleString();
 $("leftText").textContent=Math.max(0,settings.target-total).toLocaleString();
@@ -158,7 +192,7 @@ $("fiberText").textContent=settings.fiber+" g";
 $("bar").style.width=Math.min(100,total/settings.target*100)+"%";
 $("progressText").textContent=total>settings.target?`${(total-settings.target).toLocaleString()} kcal over your planned target — no need to compensate; just return to your usual routine.`:`${Math.round(total/settings.target*100)}% of your target checked off. Use hunger and energy cues too.`;
 }
-function loadDate(){smoothieLog=JSON.parse(localStorage.getItem("gf_smlog_"+dateKey)||"[]");water=Number(localStorage.getItem("gf_water_"+dateKey)||0);renderSmLog();renderWater();checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);renderMeals()}
+function loadDate(){dayMeals=load("gf_daymeals_"+dateKey,"{}");foodLog=load("gf_food_"+dateKey,"[]");renderFood();smoothieLog=JSON.parse(localStorage.getItem("gf_smlog_"+dateKey)||"[]");water=Number(localStorage.getItem("gf_water_"+dateKey)||0);renderSmLog();renderWater();checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);renderMeals()}
 $("date").addEventListener("change",()=>{dateKey=$("date").value||todayKey();loadDate()});
 $("resetDay").addEventListener("click",()=>{checked={};saveChecked();renderMeals()});
 $("editBtn").addEventListener("click",()=>showTab("edit"));
@@ -183,12 +217,24 @@ let smoothieLog=load("gf_smlog_"+dateKey,"[]");
 let favs=load("gf_favs","[]");
 let shopSel=load("gf_shopsel","[]");
 let shopDone=load("gf_shopdone","[]");
-let recipeFilter="all";
+let recipeFilter="all";let openRecipe=null;
+const prep={s1:"Peel the banana and break it into chunks.",s2:"Peel the banana and break it into chunks. Scoop the papaya flesh out of the skin and cut it into cubes (remove the seeds).",s3:"Peel the banana and break it into chunks. Cut the mango flesh into cubes (fresh or frozen).",s4:"Peel the banana and break it into chunks. Rinse the strawberries and remove the green tops.",s5:"Wash the apple, remove the core and chop it into small pieces (keep the skin on for extra fiber).",s6:"Peel the banana and break it into chunks. Cut the pineapple into small cubes, with the core removed.",s7:"Scoop the avocado flesh out of the skin and measure ¼. Peel the banana and break it into chunks."};
+const qty=(r,n)=>(r.ing.find(i=>i[0]===n)||[0,""])[1];
+function stepsFor(r){
+const fruit=r.ing.filter(i=>!["oats","low-fat milk","chia seeds","cinnamon"].includes(i[0])).map(i=>i[1]+" "+i[0]).join(" + ");
+const st=[prep[r.id],`Pour ${qty(r,"low-fat milk")} low-fat milk into the blender, then add ${qty(r,"oats")} oats and ${qty(r,"chia seeds")} chia seeds. Let it sit for 5 minutes so the oats and chia soften (optional, but it blends smoother).`,`Add the fruit: ${fruit}.`];
+if(r.id==="s5")st.push("Sprinkle in a little cinnamon if you like — it adds sweetness without sugar.");
+st.push("Blend on high for 45–60 seconds until smooth. If it's too thick, add a splash of milk or water.");
+st.push("Let it rest 2–3 minutes (the chia thickens it), stir, then drink fresh. Nothing sweet needs to be added.");
+return st;
+}
 function renderRecipes(){
 const list=recipes.filter(r=>recipeFilter==="all"||favs.includes(r.id));
-$("recipeList").innerHTML=list.length?list.map(r=>{const n=recipes.indexOf(r)+1;const f=favs.includes(r.id);return `<div class="recipe"><div class="top"><h3>${n}. ${escapeHtml(r.name)}</h3><div class="kcal">~${r.kcal} kcal</div></div><ul>${r.ing.map(i=>`<li>${escapeHtml(i[1])} ${escapeHtml(i[0])}</li>`).join("")}</ul><div class="mealbuttons"><button type="button" class="secondary fav ${f?"on":""}" data-fav="${r.id}" aria-pressed="${f}">${f?"♥ Favorite":"♡ Add to favorites"}</button><button type="button" data-addsm="${r.id}">+ Add to today</button></div></div>`}).join(""):`<p class="small">No favorites yet — tap ♡ on a recipe to save it here.</p>`;
+$("recipeList").innerHTML=list.length?list.map(r=>{const n=recipes.indexOf(r)+1;const f=favs.includes(r.id);const open=openRecipe===r.id;
+return `<button type="button" class="flavor secondary" data-open="${r.id}" aria-expanded="${open}"><span class="nm"><b>${n}. ${escapeHtml(r.name)}</b>${f?" ♥":""}</span><span class="kc">~${r.kcal} kcal<span class="chev">›</span></span></button>`+(open?`<div class="detail"><h4>Ingredients</h4><ul>${r.ing.map(i=>`<li>${escapeHtml(i[1])} ${escapeHtml(i[0])}</li>`).join("")}</ul><h4>How to make it</h4><ol>${stepsFor(r).map(t=>`<li>${escapeHtml(t)}</li>`).join("")}</ol><div class="mealbuttons"><button type="button" class="secondary fav ${f?"on":""}" data-fav="${r.id}" aria-pressed="${f}">${f?"♥ Favorite":"♡ Add to favorites"}</button><button type="button" data-addsm="${r.id}">+ Add to today</button></div></div>`:"")}).join(""):`<p class="small">No favorites yet — open a flavor and tap ♡ to save it here.</p>`;
+document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{openRecipe=openRecipe===b.dataset.open?null:b.dataset.open;renderRecipes()}));
 document.querySelectorAll("[data-fav]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.fav;favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];localStorage.setItem("gf_favs",JSON.stringify(favs));renderRecipes()}));
-document.querySelectorAll("[data-addsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog.push(b.dataset.addsm);saveSmLog();renderSmLog();updateTotals();const o=b.textContent;b.textContent="✓ Added!";setTimeout(()=>b.textContent=o,1200)}));
+document.querySelectorAll("[data-addsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog.push(b.dataset.addsm);saveSmLog();renderSmLog();updateTotals();const o=b.textContent;b.textContent="✓ Added to today!";setTimeout(()=>{b.textContent=o},1200)}));
 }
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{recipeFilter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));renderRecipes()}));
 function saveSmLog(){localStorage.setItem("gf_smlog_"+dateKey,JSON.stringify(smoothieLog))}
@@ -215,7 +261,40 @@ function renderWater(){$("waterText").textContent=`${water} glass${water===1?"":
 function setWater(n){water=Math.max(0,Math.min(20,n));localStorage.setItem("gf_water_"+dateKey,String(water));renderWater()}
 $("waterPlus").addEventListener("click",()=>setWater(water+1));
 $("waterMinus").addEventListener("click",()=>setWater(water-1));
-renderRecipes();renderShop();renderSmLog();renderWater();
+/* food log */
+let foodLog=load("gf_food_"+dateKey,"[]");
+function renderFood(){
+$("foodLog").innerHTML=foodLog.length?foodLog.map((f,i)=>`<div class="logrow"><span><span class="small">${escapeHtml(f.slot)}</span><br>${escapeHtml(f.name)} · <b>${Number(f.kcal)||0} kcal</b></span><button type="button" class="secondary" data-rmfood="${i}">Remove</button></div>`).join(""):`<p class="small">Nothing logged yet.</p>`;
+document.querySelectorAll("[data-rmfood]").forEach(b=>b.addEventListener("click",()=>{foodLog.splice(Number(b.dataset.rmfood),1);localStorage.setItem("gf_food_"+dateKey,JSON.stringify(foodLog));renderFood();updateTotals()}));
+}
+$("foodAdd").addEventListener("click",()=>{
+const name=$("foodName").value.trim();if(!name){$("foodName").focus();return}
+const kcal=Math.max(0,Math.min(3000,Number($("foodKcal").value)||0));
+foodLog.push({slot:$("foodSlot").value,name,kcal});localStorage.setItem("gf_food_"+dateKey,JSON.stringify(foodLog));
+$("foodName").value="";$("foodKcal").value="";renderFood();updateTotals();
+});
+/* weight log */
+let weights=load("gf_weights","{}");
+$("wDate").value=todayKey();
+function renderWeight(){
+const dates=Object.keys(weights).sort();
+$("wCount").textContent=dates.length;
+$("wLatest").textContent=dates.length?weights[dates[dates.length-1]].toFixed(1):"–";
+if(dates.length>1){const d=weights[dates[dates.length-1]]-weights[dates[0]];$("wChange").textContent=(d>0?"+":"")+d.toFixed(1)}else $("wChange").textContent="–";
+const rows=[...dates].reverse().map((d,i,arr)=>{const prev=weights[dates[dates.length-1-i-1]];const diff=prev===undefined?null:weights[d]-prev;
+const label=new Date(d+"T00:00:00").toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"});
+const ch=diff===null?"–":`<span class="${diff>0?"up":diff<0?"down":""}">${diff>0?"+":""}${diff.toFixed(1)}</span>`;
+return `<tr><td>${label}</td><td class="num"><b>${weights[d].toFixed(1)}</b></td><td class="num">${ch}</td><td class="num"><button type="button" class="secondary" data-wdel="${d}" aria-label="Delete ${label}">✕</button></td></tr>`}).join("");
+$("wTable").innerHTML=dates.length?`<table class="wt"><thead><tr><th>Date</th><th class="num">kg</th><th class="num">vs previous</th><th></th></tr></thead><tbody>${rows}</tbody></table>`:`<p class="small">No weights yet. Add your first one above.</p>`;
+document.querySelectorAll("[data-wdel]").forEach(b=>b.addEventListener("click",()=>{if(confirm("Delete this weight entry?")){delete weights[b.dataset.wdel];localStorage.setItem("gf_weights",JSON.stringify(weights));renderWeight()}}));
+}
+$("wSave").addEventListener("click",()=>{
+const d=$("wDate").value||todayKey();const kg=Number($("wKg").value);
+if(!(kg>=20&&kg<=300)){$("wMsg").textContent="Please enter a weight between 20 and 300 kg.";return}
+weights[d]=Math.round(kg*10)/10;localStorage.setItem("gf_weights",JSON.stringify(weights));
+$("wKg").value="";$("wMsg").textContent="Saved ✓ Saving again for the same date replaces that day's entry.";renderWeight();
+});
+renderRecipes();renderShop();renderSmLog();renderWater();renderFood();renderWeight();
 renderMeals();
 </script>
 </body>
