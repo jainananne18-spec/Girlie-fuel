@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8dce8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Girlie Fuel">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Girlie Fuel · Meal Planner</title>
+<style>
+:root{--pink:#f8dce8;--pink2:#f3b8d0;--ink:#392d35;--muted:#776b73;--cream:#fffafc;--line:#f0dce5;--green:#47745f}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff3f8,#fffafc 35%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);padding:env(safe-area-inset-top) 16px calc(22px + env(safe-area-inset-bottom));}
+main{max-width:680px;margin:0 auto}.hero{padding:24px 4px 14px}.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#a05e7d;font-weight:800}.hero h1{font-size:30px;margin:7px 0 5px;letter-spacing:-.8px}.hero p{margin:0;color:var(--muted);line-height:1.45}
+.card{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:17px;margin:12px 0;box-shadow:0 5px 18px #8e56720c}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#fff5f9;border-radius:16px;padding:13px}.metric strong{display:block;font-size:25px}.metric span{font-size:12px;color:var(--muted)}
+.progress{height:9px;background:#f6e7ee;border-radius:20px;overflow:hidden;margin:12px 0 5px}.bar{height:100%;width:0;background:linear-gradient(90deg,#e99cbe,#b76e98);border-radius:20px;transition:width .2s}
+h2{font-size:18px;margin:0 0 12px}.meal{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid #f4e8ee}.meal:first-of-type{border-top:0}.meal h3{font-size:15px;margin:0 0 5px}.meal p{font-size:13px;color:var(--muted);line-height:1.45;margin:0}.kcal{font-weight:800;color:#985577;white-space:nowrap}.tag{display:inline-block;background:#fff0f6;color:#9a5a7a;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:700;margin-top:7px}
+button,.btn{border:0;border-radius:13px;padding:12px 14px;font:inherit;font-weight:700;background:#f3c0d6;color:#4d3040;cursor:pointer}.secondary{background:#fff2f7;border:1px solid var(--line)}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{flex:1;min-width:120px}
+input,textarea,select{width:100%;border:1px solid #ead6e0;border-radius:12px;padding:11px;font:inherit;background:#fffdfd;color:var(--ink)}label{display:block;font-size:13px;font-weight:700;margin:10px 0 6px}.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.checkrow{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.checkrow input{width:20px;height:20px;accent-color:#b76e98;margin-top:1px}.checkrow span{font-size:14px;line-height:1.4}.foot{font-size:12px;color:var(--muted);line-height:1.5;padding:6px 4px 20px}.pill{display:inline-flex;align-items:center;border-radius:99px;background:#f4e3eb;padding:5px 9px;font-size:12px;font-weight:700}
+nav{position:sticky;bottom:8px;display:flex;gap:8px;background:#fffafceF;border:1px solid var(--line);border-radius:17px;padding:7px;backdrop-filter:blur(12px);z-index:2}nav button{flex:1;padding:10px 4px;font-size:12px;background:transparent}nav button.active{background:#f6d6e4}
+section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}.notice{background:#fff4d9;border:1px solid #f4e3ae;padding:12px;border-radius:14px;font-size:13px;line-height:1.45}
+@media(min-width:540px){.hero h1{font-size:36px}.summary{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+<div class="eyebrow">Your gentle daily routine ✿</div>
+<h1>Girlie Fuel</h1>
+<p>Your personal Filipino meal planner — simple, flexible, and made for your goals.</p>
+</header>
+<section id="today">
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div><div class="small">TODAY'S TARGET</div><h2 style="margin:3px 0 0">Daily nutrition</h2></div><input id="date" type="date" style="width:auto;max-width:155px"></div>
+<div class="summary" style="margin-top:14px">
+<div class="metric"><strong id="targetText">1,500</strong><span>calorie target</span></div>
+<div class="metric"><strong id="eatenText">0</strong><span>calories checked</span></div>
+<div class="metric"><strong id="leftText">1,500</strong><span>calories remaining</span></div>
+<div class="metric"><strong id="fiberText">25 g</strong><span>fiber daily goal</span></div>
+</div>
+<div class="progress"><div class="bar" id="bar"></div></div><div class="small" id="progressText">Check off meals as you eat them.</div>
+</div>
+<div class="card">
+<h2>Today's meal plan 🍓</h2>
+<div id="mealList"></div>
+<div class="actions"><button id="resetDay" class="secondary">Uncheck all meals</button><button id="editBtn">Edit daily target</button></div>
+</div>
+<div class="card">
+<h2>Little daily wins ✨</h2>
+<div class="checkrow"><input type="checkbox" id="water"><span>Drink water throughout the day (your usual goal: 2,000–2,500 mL).</span></div>
+<div class="checkrow"><input type="checkbox" id="steps"><span>Get my steps in, at a pace that feels good.</span></div>
+<div class="checkrow"><input type="checkbox" id="veg"><span>Include vegetables or fruit today.</span></div>
+<div class="checkrow"><input type="checkbox" id="protein"><span>Include protein with meals.</span></div>
+</div>
+</section>
+<section id="shake" hidden>
+<div class="card">
+<h2>🍌 Banana oats shake</h2>
+<p class="small">Your original recipe makes about 3 servings. Values are estimates; check your milk label for accuracy.</p>
+<div class="meal"><div><h3>Whole batch</h3><p>5 medium bananas + 1 cup rolled oats (about 80 g) + 2 cups Magnolia low-fat milk (480 mL).</p></div><div class="kcal">~1,065 kcal</div></div>
+<div class="meal"><div><h3>One of 3 servings</h3><p>Blend the full batch, then divide evenly into three portions. No added sugar needed.</p></div><div class="kcal">~355 kcal</div></div>
+<div class="meal"><div><h3>Fiber estimate</h3><p>About 21 g in the whole batch, or around 7 g per serving.</p></div><div class="kcal">~7 g</div></div>
+<div class="notice">Refrigerate extra portions promptly in sealed containers. A shake is one part of a balanced day; include protein, vegetables, and other foods too.</div>
+</div>
+<div class="card"><h2>Quick ingredient guide</h2><div class="meal"><div><h3>Banana</h3><p>1 medium banana</p></div><div class="kcal">~105 kcal</div></div><div class="meal"><div><h3>Rolled oats</h3><p>½ cup (about 40 g)</p></div><div class="kcal">~150 kcal</div></div><div class="meal"><div><h3>Low-fat milk</h3><p>1 cup (240 mL; verify label)</p></div><div class="kcal">~120 kcal</div></div></div>
+</section>
+<section id="edit" hidden>
+<div class="card">
+<h2>Personalize your plan ⚙️</h2>
+<label for="target">Daily calorie target</label><input id="target" type="number" min="1000" max="3500" step="50" value="1500">
+<label for="fiberTarget">Daily fiber goal (grams)</label><input id="fiberTarget" type="number" min="10" max="60" value="25">
+<p class="small">Your 1,500 kcal target is a starting estimate, not a medical prescription. Adjust with care, especially on active days.</p>
+<button id="saveSettings" style="width:100%">Save settings</button>
+</div>
+<div class="card"><h2>Meal plan notes</h2><p class="small">These calorie counts are estimates and vary with portion size, cooking oil, recipes, and product labels. You can use this app to browse your plan and track checked meals; it does not replace professional nutrition advice.</p></div>
+</section>
+<nav>
+<button class="active" data-tab="today">Today</button><button data-tab="shake">My shake</button><button data-tab="edit">Settings</button>
+</nav>
+<div class="foot">Made with love for your everyday goals 💗 · Estimates are not exact. If you feel persistently weak, dizzy, unusually hungry, or your exercise recovery suffers, consider increasing intake and consulting a qualified health professional.</div>
+</main>
+<script>
+const defaultMeals=[
+{id:"breakfast",time:"7:00 AM · BREAKFAST",name:"Banana oats shake + black coffee",desc:"⅓ of your shake batch; black coffee without sugar.",kcal:355,fiber:7},
+{id:"lunch",time:"12:00 PM · LUNCH",name:"Chicken, rice & vegetables",desc:"¾ cup cooked rice, 100 g cooked chicken, 1 cup vegetables, about 1 tsp oil.",kcal:430,fiber:4},
+{id:"snack",time:"3:00 PM · SNACK",name:"Boiled egg & guava",desc:"1 boiled egg and 1 small guava.",kcal:140,fiber:4},
+{id:"dinner",time:"6:30 PM · DINNER",name:"Bangus, rice & pechay",desc:"100 g cooked bangus, ½ cup cooked rice, 1 cup pechay, about 1 tsp oil.",kcal:400,fiber:3},
+{id:"extra",time:"FLEXIBLE · EXTRA FOOD",name:"Add a nourishing snack or extra portion",desc:"Use this flexible space for more food if hungry or active; examples include yogurt, fruit, or extra rice with protein.",kcal:175,fiber:2}
+];
+const $=id=>document.getElementById(id);
+const todayKey=()=>new Date().toLocaleDateString("en-CA");
+let settings=JSON.parse(localStorage.getItem("gf_settings")||'{"target":1500,"fiber":25}');
+let dateKey=todayKey();
+$("date").value=dateKey;
+let checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");
+let habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");
+function saveChecked(){localStorage.setItem("gf_checked_"+dateKey,JSON.stringify(checked))}
+function renderMeals(){
+$("mealList").innerHTML=defaultMeals.map(m=>`<div class="meal"><div><div class="small">${m.time}</div><h3>${m.name}</h3><p>${m.desc}</p><label class="checkrow" style="margin-bottom:0"><input type="checkbox" data-meal="${m.id}" ${checked[m.id]?"checked":""}><span>I've had this</span></label></div><div class="kcal">${m.kcal} kcal</div></div>`).join("");
+document.querySelectorAll("[data-meal]").forEach(el=>el.addEventListener("change",()=>{checked[el.dataset.meal]=el.checked;saveChecked();updateTotals()}));
+updateTotals()
+}
+function updateTotals(){
+const total=defaultMeals.reduce((s,m)=>s+(checked[m.id]?m.kcal:0),0);
+$("targetText").textContent=Number(settings.target).toLocaleString();
+$("eatenText").textContent=total.toLocaleString();
+$("leftText").textContent=Math.max(0,settings.target-total).toLocaleString();
+$("fiberText").textContent=settings.fiber+" g";
+$("bar").style.width=Math.min(100,total/settings.target*100)+"%";
+$("progressText").textContent=total>settings.target?`${(total-settings.target).toLocaleString()} kcal over your planned target — no need to compensate; just return to your usual routine.`:`${Math.round(total/settings.target*100)}% of your target checked off. Use hunger and energy cues too.`;
+}
+function loadDate(){checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);renderMeals()}
+$("date").addEventListener("change",()=>{dateKey=$("date").value||todayKey();loadDate()});
+$("resetDay").addEventListener("click",()=>{checked={};saveChecked();renderMeals()});
+$("editBtn").addEventListener("click",()=>showTab("edit"));
+$("saveSettings").addEventListener("click",()=>{settings.target=Math.max(1000,Math.min(3500,Number($("target").value)||1500));settings.fiber=Math.max(10,Math.min(60,Number($("fiberTarget").value)||25));localStorage.setItem("gf_settings",JSON.stringify(settings));updateTotals();showTab("today")});
+["water","steps","veg","protein"].forEach(id=>$(id).addEventListener("change",()=>{habits[id]=$(id).checked;localStorage.setItem("gf_habits_"+dateKey,JSON.stringify(habits))}));
+function showTab(tab){document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!==tab);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));if(tab==="edit"){$("target").value=settings.target;$("fiberTarget").value=settings.fiber}window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+renderMeals();
+</script>
+</body>
+</html>
