@@ -1,13 +1,13 @@
 {
-  "name": "Girlie Fuel - Filipino Meal Planner",
+  "name": "Girlie Fuel",
   "short_name": "Girlie Fuel",
-  "description": "Personal daily calorie and Filipino meal planner",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#fff3f8",
+  "background_color": "#fffafc",
   "theme_color": "#f8dce8",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
   ]
 }

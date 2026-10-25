@@ -20,9 +20,14 @@ main{max-width:680px;margin:0 auto}.hero{padding:24px 4px 14px}.eyebrow{font-siz
 h2{font-size:18px;margin:0 0 12px}.meal{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid #f4e8ee}.meal:first-of-type{border-top:0}.meal h3{font-size:15px;margin:0 0 5px}.meal p{font-size:13px;color:var(--muted);line-height:1.45;margin:0}.kcal{font-weight:800;color:#985577;white-space:nowrap}.tag{display:inline-block;background:#fff0f6;color:#9a5a7a;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:700;margin-top:7px}
 button,.btn{border:0;border-radius:13px;padding:12px 14px;font:inherit;font-weight:700;background:#f3c0d6;color:#4d3040;cursor:pointer}.secondary{background:#fff2f7;border:1px solid var(--line)}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{flex:1;min-width:120px}
 input,textarea,select{width:100%;border:1px solid #ead6e0;border-radius:12px;padding:11px;font:inherit;background:#fffdfd;color:var(--ink)}label{display:block;font-size:13px;font-weight:700;margin:10px 0 6px}.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.checkrow{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.checkrow input{width:20px;height:20px;accent-color:#b76e98;margin-top:1px}.checkrow span{font-size:14px;line-height:1.4}.foot{font-size:12px;color:var(--muted);line-height:1.5;padding:6px 4px 20px}.pill{display:inline-flex;align-items:center;border-radius:99px;background:#f4e3eb;padding:5px 9px;font-size:12px;font-weight:700}
+.editmeal{display:none;background:#fff7fa;border:1px solid #f0dce5;border-radius:14px;padding:12px;margin-top:10px}.editmeal.open{display:block}.editmeal label{margin-top:8px}.editmeal .actions{margin-top:10px}.mealbuttons{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.mealbuttons button{font-size:12px;padding:8px 10px}.checkrow{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.checkrow input{width:20px;height:20px;accent-color:#b76e98;margin-top:1px}.checkrow span{font-size:14px;line-height:1.4}.foot{font-size:12px;color:var(--muted);line-height:1.5;padding:6px 4px 20px}.pill{display:inline-flex;align-items:center;border-radius:99px;background:#f4e3eb;padding:5px 9px;font-size:12px;font-weight:700}
 nav{position:sticky;bottom:8px;display:flex;gap:8px;background:#fffafceF;border:1px solid var(--line);border-radius:17px;padding:7px;backdrop-filter:blur(12px);z-index:2}nav button{flex:1;padding:10px 4px;font-size:12px;background:transparent}nav button.active{background:#f6d6e4}
 section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}.notice{background:#fff4d9;border:1px solid #f4e3ae;padding:12px;border-radius:14px;font-size:13px;line-height:1.45}
+.chips{display:flex;gap:8px;margin:0 0 10px}.chip{flex:1;padding:9px 6px;font-size:13px;background:#fff2f7;border:1px solid var(--line)}.chip.active{background:#f3c0d6}
+.recipe{border-top:1px solid #f4e8ee;padding:14px 0}.recipe:first-of-type{border-top:0}.recipe .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.recipe h3{font-size:16px;margin:0}.recipe ul{margin:8px 0 0;padding-left:20px;font-size:14px;line-height:1.6;color:var(--ink)}.recipe .mealbuttons button{font-size:13px}.fav.on{background:#f3b8d0}
+.water{display:flex;align-items:center;justify-content:space-between;gap:12px}.water .ctrl{display:flex;align-items:center;gap:10px}.water .ctrl button{width:42px;height:42px;padding:0;font-size:20px}.water strong{font-size:22px;min-width:28px;text-align:center}.cups{font-size:20px;letter-spacing:2px;margin-top:8px;min-height:26px}
+.logrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #f4e8ee;font-size:14px}.logrow:first-of-type{border-top:0}.logrow button{padding:6px 10px;font-size:12px}
+.shop label.checkrow{margin:8px 0}.shop .checkrow span small{display:block;color:var(--muted)}.shop .checkrow input:checked+span{text-decoration:line-through;opacity:.55}
 @media(min-width:540px){.hero h1{font-size:36px}.summary{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
@@ -49,6 +54,15 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 <div id="mealList"></div>
 <div class="actions"><button id="resetDay" class="secondary">Uncheck all meals</button><button id="editBtn">Edit daily target</button></div>
 </div>
+<div class="card" id="smLogCard" hidden>
+<h2>Smoothies today 🥤</h2>
+<div id="smLog"></div>
+</div>
+<div class="card">
+<h2>Water tracker 💧</h2>
+<div class="water"><div><div class="small">1 glass = 250 mL · goal 8–10 glasses</div><div id="waterText" style="font-weight:800;margin-top:3px">0 glasses · 0 mL</div></div><div class="ctrl"><button type="button" class="secondary" id="waterMinus" aria-label="Remove a glass">−</button><button type="button" id="waterPlus" aria-label="Add a glass">+</button></div></div>
+<div class="cups" id="cups"></div>
+</div>
 <div class="card">
 <h2>Little daily wins ✨</h2>
 <div class="checkrow"><input type="checkbox" id="water"><span>Drink water throughout the day (your usual goal: 2,000–2,500 mL).</span></div>
@@ -56,6 +70,22 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 <div class="checkrow"><input type="checkbox" id="veg"><span>Include vegetables or fruit today.</span></div>
 <div class="checkrow"><input type="checkbox" id="protein"><span>Include protein with meals.</span></div>
 </div>
+</section>
+<section id="smoothies" hidden>
+<div class="card">
+<h2>🥤 Smoothie menu</h2>
+<p class="small">7 blends with low-fat milk, oats and chia seeds. No added sugar, honey or syrup — the sweetness comes from the fruit. Calories are estimates and vary with fruit size and your milk label.</p>
+<div class="chips"><button type="button" class="chip active" data-filter="all">All 7</button><button type="button" class="chip" data-filter="fav">♥ Favorites</button></div>
+<div id="recipeList"></div>
+</div>
+<div class="card shop">
+<h2>🛒 Smoothie shopping list</h2>
+<p class="small" id="shopHint">Tick the recipes you want this week to build your list.</p>
+<div id="shopPicks" class="mealbuttons"></div>
+<div id="shopList" style="margin-top:8px"></div>
+<div class="actions" style="margin-top:10px"><button type="button" class="secondary" id="shopClear">Clear ticks</button></div>
+</div>
+<div class="notice">Tip: soak the oats in the milk for 5–10 minutes (or overnight in the fridge) for a smoother blend and let the chia seeds swell. Frozen fruit makes it thick and cold with no ice needed.</div>
 </section>
 <section id="shake" hidden>
 <div class="card">
@@ -79,14 +109,14 @@ section[hidden]{display:none!important}.small{font-size:12px;color:var(--muted)}
 <div class="card"><h2>Meal plan notes</h2><p class="small">These calorie counts are estimates and vary with portion size, cooking oil, recipes, and product labels. You can use this app to browse your plan and track checked meals; it does not replace professional nutrition advice.</p></div>
 </section>
 <nav>
-<button class="active" data-tab="today">Today</button><button data-tab="shake">My shake</button><button data-tab="edit">Settings</button>
+<button class="active" data-tab="today">Today</button><button data-tab="smoothies">Smoothies</button><button data-tab="shake">My shake</button><button data-tab="edit">Settings</button>
 </nav>
 <div class="foot">Made with love for your everyday goals 💗 · Estimates are not exact. If you feel persistently weak, dizzy, unusually hungry, or your exercise recovery suffers, consider increasing intake and consulting a qualified health professional.</div>
 </main>
 <script>
 const defaultMeals=[
 {id:"breakfast",time:"7:00 AM · BREAKFAST",name:"Banana oats shake + black coffee",desc:"⅓ of your shake batch; black coffee without sugar.",kcal:355,fiber:7},
-{id:"lunch",time:"12:00 PM · LUNCH",name:"Chicken, rice & vegetables",desc:"¾ cup cooked rice, 100 g cooked chicken, 1 cup vegetables, about 1 tsp oil.",kcal:430,fiber:4},
+{id:"lunch",time:"12:00 PM · LUNCH",name:"Fried bangus + stir-fried togue, cabbage & tofu",desc:"Estimated serving: 1 portion fried bangus plus 1 cup stir-fried bean sprouts (togue), cabbage and tofu. Add rice separately if eaten.",kcal:450,fiber:4},
 {id:"snack",time:"3:00 PM · SNACK",name:"Boiled egg & guava",desc:"1 boiled egg and 1 small guava.",kcal:140,fiber:4},
 {id:"dinner",time:"6:30 PM · DINNER",name:"Bangus, rice & pechay",desc:"100 g cooked bangus, ½ cup cooked rice, 1 cup pechay, about 1 tsp oil.",kcal:400,fiber:3},
 {id:"extra",time:"FLEXIBLE · EXTRA FOOD",name:"Add a nourishing snack or extra portion",desc:"Use this flexible space for more food if hungry or active; examples include yogurt, fruit, or extra rice with protein.",kcal:175,fiber:2}
@@ -99,13 +129,28 @@ $("date").value=dateKey;
 let checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");
 let habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");
 function saveChecked(){localStorage.setItem("gf_checked_"+dateKey,JSON.stringify(checked))}
+let mealOverrides=JSON.parse(localStorage.getItem("gf_meals")||"{}");
+function getMeals(){return defaultMeals.map(m=>({...m,...(mealOverrides[m.id]||{})}))}
 function renderMeals(){
-$("mealList").innerHTML=defaultMeals.map(m=>`<div class="meal"><div><div class="small">${m.time}</div><h3>${m.name}</h3><p>${m.desc}</p><label class="checkrow" style="margin-bottom:0"><input type="checkbox" data-meal="${m.id}" ${checked[m.id]?"checked":""}><span>I've had this</span></label></div><div class="kcal">${m.kcal} kcal</div></div>`).join("");
+const meals=getMeals();
+$("mealList").innerHTML=meals.map(m=>`<div class="meal"><div><div class="small">${m.time}</div><h3>${escapeHtml(m.name)}</h3><p>${escapeHtml(m.desc)}</p><label class="checkrow" style="margin-bottom:0"><input type="checkbox" data-meal="${m.id}" ${checked[m.id]?"checked":""}><span>I've had this</span></label><div class="mealbuttons"><button type="button" class="secondary" data-edit="${m.id}">✏️ Edit meal</button></div><div class="editmeal" id="editor-${m.id}">
+<label>Meal name</label><input id="name-${m.id}" value="${escapeAttr(m.name)}">
+<label>Food and portion details</label><textarea id="desc-${m.id}" rows="3">${escapeHtml(m.desc)}</textarea>
+<div class="fieldgrid"><div><label>Calories (kcal)</label><input id="kcal-${m.id}" type="number" min="0" max="3000" value="${m.kcal}"></div><div><label>Fiber (g)</label><input id="fiber-${m.id}" type="number" min="0" max="100" value="${m.fiber}"></div></div>
+<div class="actions"><button type="button" data-save="${m.id}">Save meal</button><button type="button" class="secondary" data-cancel="${m.id}">Cancel</button></div>
+</div></div><div class="kcal">${m.kcal} kcal</div></div>`).join("");
 document.querySelectorAll("[data-meal]").forEach(el=>el.addEventListener("change",()=>{checked[el.dataset.meal]=el.checked;saveChecked();updateTotals()}));
-updateTotals()
+document.querySelectorAll("[data-edit]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.edit).classList.toggle("open")));
+document.querySelectorAll("[data-cancel]").forEach(el=>el.addEventListener("click",()=>$("editor-"+el.dataset.cancel).classList.remove("open")));
+document.querySelectorAll("[data-save]").forEach(el=>el.addEventListener("click",()=>{
+const id=el.dataset.save;const name=$("name-"+id).value.trim()||"My meal";const desc=$("desc-"+id).value.trim();const kcal=Math.max(0,Math.min(3000,Number($("kcal-"+id).value)||0));const fiber=Math.max(0,Math.min(100,Number($("fiber-"+id).value)||0));
+mealOverrides[id]={name,desc,kcal,fiber};localStorage.setItem("gf_meals",JSON.stringify(mealOverrides));renderMeals();
+}));updateTotals()
 }
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function escapeAttr(s){return escapeHtml(s)}
 function updateTotals(){
-const total=defaultMeals.reduce((s,m)=>s+(checked[m.id]?m.kcal:0),0);
+const total=getMeals().reduce((s,m)=>s+(checked[m.id]?Number(m.kcal):0),0)+smoothieLog.reduce((s,id)=>s+((recipes.find(r=>r.id===id)||{}).kcal||0),0);
 $("targetText").textContent=Number(settings.target).toLocaleString();
 $("eatenText").textContent=total.toLocaleString();
 $("leftText").textContent=Math.max(0,settings.target-total).toLocaleString();
@@ -113,7 +158,7 @@ $("fiberText").textContent=settings.fiber+" g";
 $("bar").style.width=Math.min(100,total/settings.target*100)+"%";
 $("progressText").textContent=total>settings.target?`${(total-settings.target).toLocaleString()} kcal over your planned target — no need to compensate; just return to your usual routine.`:`${Math.round(total/settings.target*100)}% of your target checked off. Use hunger and energy cues too.`;
 }
-function loadDate(){checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);renderMeals()}
+function loadDate(){smoothieLog=JSON.parse(localStorage.getItem("gf_smlog_"+dateKey)||"[]");water=Number(localStorage.getItem("gf_water_"+dateKey)||0);renderSmLog();renderWater();checked=JSON.parse(localStorage.getItem("gf_checked_"+dateKey)||"{}");habits=JSON.parse(localStorage.getItem("gf_habits_"+dateKey)||"{}");["water","steps","veg","protein"].forEach(id=>$(id).checked=!!habits[id]);renderMeals()}
 $("date").addEventListener("change",()=>{dateKey=$("date").value||todayKey();loadDate()});
 $("resetDay").addEventListener("click",()=>{checked={};saveChecked();renderMeals()});
 $("editBtn").addEventListener("click",()=>showTab("edit"));
@@ -122,6 +167,55 @@ $("saveSettings").addEventListener("click",()=>{settings.target=Math.max(1000,Ma
 function showTab(tab){document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!==tab);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));if(tab==="edit"){$("target").value=settings.target;$("fiberTarget").value=settings.fiber}window.scrollTo({top:0,behavior:"smooth"})}
 document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+/* ---------- Smoothies ---------- */
+const recipes=[
+{id:"s1",name:"Banana Oat Chia",kcal:370,ing:[["banana","1"],["oats","½ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]},
+{id:"s2",name:"Banana Papaya",kcal:340,ing:[["banana","½"],["papaya","1 cup"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]},
+{id:"s3",name:"Mango Banana",kcal:360,ing:[["banana","½"],["mango","½ cup"],["oats","½ cup"],["low-fat milk","¾ cup"],["chia seeds","1 tbsp"]]},
+{id:"s4",name:"Strawberry Banana",kcal:330,ing:[["banana","½"],["strawberries","1 cup"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]},
+{id:"s5",name:"Apple Cinnamon",kcal:350,ing:[["apple","1 small"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"],["cinnamon","optional"]]},
+{id:"s6",name:"Pineapple Banana",kcal:355,ing:[["banana","½"],["pineapple","¾ cup"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]},
+{id:"s7",name:"Avocado Banana",kcal:390,ing:[["avocado","¼"],["banana","½"],["oats","⅓ cup"],["low-fat milk","1 cup"],["chia seeds","1 tbsp"]]}
+];
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||d)}catch(e){return JSON.parse(d)}};
+let smoothieLog=load("gf_smlog_"+dateKey,"[]");
+let favs=load("gf_favs","[]");
+let shopSel=load("gf_shopsel","[]");
+let shopDone=load("gf_shopdone","[]");
+let recipeFilter="all";
+function renderRecipes(){
+const list=recipes.filter(r=>recipeFilter==="all"||favs.includes(r.id));
+$("recipeList").innerHTML=list.length?list.map(r=>{const n=recipes.indexOf(r)+1;const f=favs.includes(r.id);return `<div class="recipe"><div class="top"><h3>${n}. ${escapeHtml(r.name)}</h3><div class="kcal">~${r.kcal} kcal</div></div><ul>${r.ing.map(i=>`<li>${escapeHtml(i[1])} ${escapeHtml(i[0])}</li>`).join("")}</ul><div class="mealbuttons"><button type="button" class="secondary fav ${f?"on":""}" data-fav="${r.id}" aria-pressed="${f}">${f?"♥ Favorite":"♡ Add to favorites"}</button><button type="button" data-addsm="${r.id}">+ Add to today</button></div></div>`}).join(""):`<p class="small">No favorites yet — tap ♡ on a recipe to save it here.</p>`;
+document.querySelectorAll("[data-fav]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.fav;favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];localStorage.setItem("gf_favs",JSON.stringify(favs));renderRecipes()}));
+document.querySelectorAll("[data-addsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog.push(b.dataset.addsm);saveSmLog();renderSmLog();updateTotals();const o=b.textContent;b.textContent="✓ Added!";setTimeout(()=>b.textContent=o,1200)}));
+}
+document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{recipeFilter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));renderRecipes()}));
+function saveSmLog(){localStorage.setItem("gf_smlog_"+dateKey,JSON.stringify(smoothieLog))}
+function renderSmLog(){
+$("smLogCard").hidden=!smoothieLog.length;
+$("smLog").innerHTML=smoothieLog.map((id,i)=>{const r=recipes.find(x=>x.id===id);return r?`<div class="logrow"><span>${escapeHtml(r.name)} · <b>~${r.kcal} kcal</b></span><button type="button" class="secondary" data-rmsm="${i}">Remove</button></div>`:""}).join("");
+document.querySelectorAll("[data-rmsm]").forEach(b=>b.addEventListener("click",()=>{smoothieLog.splice(Number(b.dataset.rmsm),1);saveSmLog();renderSmLog();updateTotals()}));
+}
+/* shopping list */
+function renderShop(){
+$("shopPicks").innerHTML=recipes.map(r=>`<button type="button" class="secondary ${shopSel.includes(r.id)?"fav on":""}" data-pick="${r.id}">${shopSel.includes(r.id)?"✓ ":""}${escapeHtml(r.name)}</button>`).join("");
+const map={};
+recipes.filter(r=>shopSel.includes(r.id)).forEach(r=>r.ing.forEach(([n,q])=>{(map[n]=map[n]||[]).push(r.name)}));
+const names=Object.keys(map).sort();
+$("shopList").innerHTML=names.length?names.map(n=>`<label class="checkrow"><input type="checkbox" data-shop="${escapeAttr(n)}" ${shopDone.includes(n)?"checked":""}><span>${escapeHtml(n)}<small>for ${escapeHtml(map[n].join(", "))}</small></span></label>`).join(""):"";
+$("shopHint").textContent=names.length?`${names.length} items for ${shopSel.length} recipe${shopSel.length>1?"s":""}. Tick items as you put them in your basket.`:"Tap the recipes you want this week to build your list.";
+document.querySelectorAll("[data-pick]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.pick;shopSel=shopSel.includes(id)?shopSel.filter(x=>x!==id):[...shopSel,id];localStorage.setItem("gf_shopsel",JSON.stringify(shopSel));renderShop()}));
+document.querySelectorAll("[data-shop]").forEach(b=>b.addEventListener("change",()=>{const n=b.dataset.shop;shopDone=b.checked?[...new Set([...shopDone,n])]:shopDone.filter(x=>x!==n);localStorage.setItem("gf_shopdone",JSON.stringify(shopDone));renderShop()}));
+}
+$("shopClear").addEventListener("click",()=>{shopDone=[];localStorage.setItem("gf_shopdone","[]");renderShop()});
+/* water */
+let water=Number(localStorage.getItem("gf_water_"+dateKey)||0);
+function renderWater(){$("waterText").textContent=`${water} glass${water===1?"":"es"} · ${(water*250).toLocaleString()} mL`;$("cups").textContent="💧".repeat(Math.min(water,12))}
+function setWater(n){water=Math.max(0,Math.min(20,n));localStorage.setItem("gf_water_"+dateKey,String(water));renderWater()}
+$("waterPlus").addEventListener("click",()=>setWater(water+1));
+$("waterMinus").addEventListener("click",()=>setWater(water-1));
+renderRecipes();renderShop();renderSmLog();renderWater();
 renderMeals();
 </script>
 </body>
